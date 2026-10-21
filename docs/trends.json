@@ -1,41 +1,41 @@
 {
-  "atualizado": "2026-10-21T19:14:05.079178-03:00",
+  "atualizado": "2026-10-21T19:29:21.575790-03:00",
   "itens": [
     {
-      "id": "MLB17001015",
-      "titulo": "Sabão Líquido Omo Lavagem Perfeita 3l",
-      "preco": 35.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_652994-MLA84838922409_052025-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Casa",
-      "link": "https://www.mercadolivre.com.br/p/MLB17001015?matt_tool=71970283"
-    },
-    {
-      "id": "MLB50376945",
-      "titulo": "Fritadeira Elétrica Air Fryer Quad Fry Elgin 4,2 L, 1400w",
-      "preco": 241.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_927559-MLA99450788218_112025-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Eletrodomésticos",
-      "link": "https://www.mercadolivre.com.br/p/MLB50376945?matt_tool=71970283"
-    },
-    {
-      "id": "MLB78875106",
-      "titulo": "Pulverizador Borrifador Spray Para Jardinagem Multiuso 2 L Sortida",
-      "preco": 22.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_628684-MLA117134729949_092026-F.jpg",
+      "id": "MLB73418954",
+      "titulo": "Soprador De Ar Turbo Automotivo Limpeza Profunda Portatil Sem Fio Multifuncional Churrasqueira Janelas Poeiras Landara",
+      "preco": 45.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_679406-MLA118161003032_102026-F.jpg",
       "frete_gratis": false,
       "categoria": "Organização e Limpeza",
-      "link": "https://www.mercadolivre.com.br/p/MLB78875106?matt_tool=71970283"
+      "link": "https://www.mercadolivre.com.br/p/MLB73418954?matt_tool=71970283"
     },
     {
-      "id": "MLB27078749",
-      "titulo": "Refil Filtro Cix06ax Purificador De Água Consul Cpc30af, Cpc30ab, Cpb35ab, Cpb35af, Cpb36af, Cpb36ab, Cpb34ab, Cpb34af, Cpb34as, Cpc31ab, Cpc31af , Original",
-      "preco": 70.19,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_879703-MLA99536118600_122025-F.jpg",
+      "id": "MLB75466404",
+      "titulo": "Chaleira Elétrica Inox 1,8 Litros Jarra Aquecedora Com Desligamento Automático e Base Giratória Aquecimento Rápido Alça Ergonômica Para Escritório Casa Cozinha Viagem Fervedor De Água Moderno",
+      "preco": 29.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_950533-MLA115732440651_082026-F.jpg",
       "frete_gratis": false,
       "categoria": "Eletrodomésticos",
-      "link": "https://www.mercadolivre.com.br/p/MLB27078749?matt_tool=71970283"
+      "link": "https://www.mercadolivre.com.br/p/MLB75466404?matt_tool=71970283"
+    },
+    {
+      "id": "MLB75627492",
+      "titulo": "Soprador de Ar Portátil Woosh Recarregável, Para Limpeza e Acender Churrasqueira",
+      "preco": 43.49,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_917115-MLA116367752196_092026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Organização e Limpeza",
+      "link": "https://www.mercadolivre.com.br/p/MLB75627492?matt_tool=71970283"
+    },
+    {
+      "id": "MLB77835608",
+      "titulo": "Cozedor De Ovos Automático Panela A Vapor Elétrica Legumes Elétrica Portátil Prático Rápido 7 Ovos Em 5min Micgeek",
+      "preco": 30.97,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_873330-MLA115104920512_082026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Eletrodomésticos",
+      "link": "https://www.mercadolivre.com.br/p/MLB77835608?matt_tool=71970283"
     }
   ]
 }
