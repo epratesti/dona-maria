@@ -1,41 +1,41 @@
 {
-  "atualizado": "2026-10-21T16:52:49.169119-03:00",
+  "atualizado": "2026-10-21T19:14:05.079178-03:00",
   "itens": [
     {
-      "id": "MLB79915624",
-      "titulo": "Kit Ferramentas 46 Peças Jogo Chaves Catraca Soquetes Allen Torx Fenda Phillips Maleta Completa Manual Mecânico Manutenção Casa Carro Oficina Profissional ajustes e reparos diversos montagens Quicko",
-      "preco": 32.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_636676-MLA116721406480_092026-F.jpg",
+      "id": "MLB17001015",
+      "titulo": "Sabão Líquido Omo Lavagem Perfeita 3l",
+      "preco": 35.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_652994-MLA84838922409_052025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Casa",
+      "link": "https://www.mercadolivre.com.br/p/MLB17001015?matt_tool=71970283"
+    },
+    {
+      "id": "MLB50376945",
+      "titulo": "Fritadeira Elétrica Air Fryer Quad Fry Elgin 4,2 L, 1400w",
+      "preco": 241.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_927559-MLA99450788218_112025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Eletrodomésticos",
+      "link": "https://www.mercadolivre.com.br/p/MLB50376945?matt_tool=71970283"
+    },
+    {
+      "id": "MLB78875106",
+      "titulo": "Pulverizador Borrifador Spray Para Jardinagem Multiuso 2 L Sortida",
+      "preco": 22.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_628684-MLA117134729949_092026-F.jpg",
       "frete_gratis": false,
       "categoria": "Organização e Limpeza",
-      "link": "https://www.mercadolivre.com.br/p/MLB79915624?matt_tool=71970283"
+      "link": "https://www.mercadolivre.com.br/p/MLB78875106?matt_tool=71970283"
     },
     {
-      "id": "MLB65131882",
-      "titulo": "Balança Digital De Precisão Davely Cook Cozinha Para Uso Domestico E Profissional Fitness Ideal Para Dietas Treinos Alimentos Confeitaria Nutrição Capacidade Máxima 10 Kg Branco",
-      "preco": 9.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_977172-MLA107049793514_022026-F.jpg",
+      "id": "MLB27078749",
+      "titulo": "Refil Filtro Cix06ax Purificador De Água Consul Cpc30af, Cpc30ab, Cpb35ab, Cpb35af, Cpb36af, Cpb36ab, Cpb34ab, Cpb34af, Cpb34as, Cpc31ab, Cpc31af , Original",
+      "preco": 70.19,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_879703-MLA99536118600_122025-F.jpg",
       "frete_gratis": false,
       "categoria": "Eletrodomésticos",
-      "link": "https://www.mercadolivre.com.br/p/MLB65131882?matt_tool=71970283"
-    },
-    {
-      "id": "MLB20562024",
-      "titulo": "Portátil B&G Mini Compressor",
-      "preco": 56.5,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_884639-MLA112856291753_062026-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Organização e Limpeza",
-      "link": "https://www.mercadolivre.com.br/p/MLB20562024?matt_tool=71970283"
-    },
-    {
-      "id": "MLB20306137",
-      "titulo": "Mixer Elétrico Portátil 2 em 1 Recarregável Potente Misturador de Bebidas e Ovos 3 Velocidades Usb Batedor e Fue Fouet Woosh",
-      "preco": 15.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_619021-MLA118179806341_092026-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Eletrodomésticos",
-      "link": "https://www.mercadolivre.com.br/p/MLB20306137?matt_tool=71970283"
+      "link": "https://www.mercadolivre.com.br/p/MLB27078749?matt_tool=71970283"
     }
   ]
 }
