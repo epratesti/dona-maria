@@ -1,4 +1,41 @@
 {
-  "atualizado": null,
-  "itens": []
+  "atualizado": "2026-10-21T11:37:53.497336-03:00",
+  "itens": [
+    {
+      "id": "MLB53222689",
+      "titulo": "Kit 10 Potes Herméticos Vidro 640ml Starhouse Marmita Forno Micro-ondas Airfryer com 4 travas de super vedação",
+      "preco": 88.13,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_942823-MLA113526261849_062026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Casa",
+      "link": "https://www.mercadolivre.com.br/p/MLB53222689?matt_tool=71970283"
+    },
+    {
+      "id": "MLB27080589",
+      "titulo": "Kit 2 Refil De Água Acqua Pure Electrolux Pe12a Pe12b Pe12g PC01X, Cor Marrom-claro",
+      "preco": 115.57,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_764049-MLA114244626520_082026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Eletrodomésticos",
+      "link": "https://www.mercadolivre.com.br/p/MLB27080589?matt_tool=71970283"
+    },
+    {
+      "id": "MLB24656724",
+      "titulo": "3 Mantas Asfáltica Aluminizada Telhado Auto Adesiva 45cmx10m",
+      "preco": 259.89,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_776678-MLA95631255988_102025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Organização e Limpeza",
+      "link": "https://www.mercadolivre.com.br/p/MLB24656724?matt_tool=71970283"
+    },
+    {
+      "id": "MLB34506613",
+      "titulo": "Mangueira De Jardim 50m Metros Com Esguicho Trançada Reforçada Flexível 7/16 Anti Dobra Irrigação Quintal Poço Lavagem Durável Marqs Home",
+      "preco": 99.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_922054-MLA109736714470_042026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Casa",
+      "link": "https://www.mercadolivre.com.br/p/MLB34506613?matt_tool=71970283"
+    }
+  ]
 }
