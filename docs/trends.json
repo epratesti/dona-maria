@@ -1,23 +1,23 @@
 {
-  "atualizado": "2026-10-22T10:55:57.172515-03:00",
+  "atualizado": "2026-10-22T11:16:42.693557-03:00",
   "itens": [
     {
-      "id": "MLB21361292",
-      "titulo": "Loção Hidratante Corporal Sem Perfume, com Ceramidas Essenciais e Ácido Hialurônico, Textura Fluida CeraVe 473ml",
-      "preco": 81.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_744669-MLA110746875502_052026-F.jpg",
+      "id": "MLB37257779",
+      "titulo": "Shampoo Anticaspa Cabelos Normais a Oleosos, Dercos DS Vichy, 300g",
+      "preco": 184.67,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_646464-MLA112810161826_072026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza",
-      "link": "https://produto.mercadolivre.com.br/MLB-5438818723?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5759894972?matt_tool=71970283"
     },
     {
-      "id": "MLB19976500",
-      "titulo": "Panela De Pressão Panelux Alumínio Polido 7 Litros Cor Cinza",
-      "preco": 98.61,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_844741-MLA100054735233_122025-F.jpg",
-      "frete_gratis": true,
+      "id": "MLB19745649",
+      "titulo": "Água sanitária e alvejante cloro ativo 5 litros Ypê",
+      "preco": 15.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_950605-MLA99927683925_112025-F.jpg",
+      "frete_gratis": false,
       "categoria": "Casa",
-      "link": "https://produto.mercadolivre.com.br/MLB-3729506770?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-3795381493?matt_tool=71970283"
     }
   ]
 }
