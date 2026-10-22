@@ -1,4 +1,32 @@
 {
-  "atualizado": "2026-10-22T09:21:53.747888-03:00",
-  "itens": []
+  "atualizado": "2026-10-22T10:05:59.293753-03:00",
+  "itens": [
+    {
+      "id": "MLB45474714",
+      "titulo": "Chinelo Feminino Slim Havaianas",
+      "preco": 59.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_671885-MLA81672743644_012025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Moda",
+      "link": "https://produto.mercadolivre.com.br/MLB-7035512418?matt_tool=71970283"
+    },
+    {
+      "id": "MLB24326256",
+      "titulo": "Creme Multirreparador Pele Sensível Cicaplast Baume B5+ La Roche-Posay 40ml",
+      "preco": 71.52,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_695558-MLA119937437423_102026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza",
+      "link": "https://produto.mercadolivre.com.br/MLB-3949790433?matt_tool=71970283"
+    },
+    {
+      "id": "MLB66452309",
+      "titulo": "Papel Higiênico Folha Dupla 30m L24p22 Personal",
+      "preco": 30.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_710576-MLA117488774728_102026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Casa",
+      "link": "https://produto.mercadolivre.com.br/MLB-5426904247?matt_tool=71970283"
+    }
+  ]
 }
