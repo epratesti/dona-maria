@@ -1,11 +1,11 @@
-"""Dona Maria: ofertas para as melhores donas de casa → Telegram.
-Foco exclusivo em Casa, Cozinha, Organização, Limpeza e Eletrodomésticos.
-Evita repetições por 14 dias.
+"""Dona Maria: ofertas para mulheres → Telegram.
+Foco: moda feminina, calçados, beleza, acessórios, casa e cozinha.
+Evita repetições por 14 dias (ID + título).
 Horário (America/Sao_Paulo):
   - 07h–22h: a cada 1 hora
   - 23h, 02h e 05h: a cada 3 horas (madrugada)
 """
-import os, json, html, datetime as dt
+import os, json, html, re, datetime as dt
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
@@ -15,31 +15,64 @@ AFF_PARAMS = os.getenv("ML_AFFILIATE_PARAMS", "matt_tool={id}")
 TG_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TG_CHAT = os.getenv("TELEGRAM_CHAT_ID")
 MAX_POSTS = int(os.getenv("MAX_POSTS", "4"))
-REPETIR_APOS_DIAS = 14  # evita repetir o mesmo produto por 2 semanas
+REPETIR_APOS_DIAS = 14
 API = "https://api.mercadolibre.com"
 ROOT = Path(__file__).parent
 TRENDS = ROOT / "docs" / "trends.json"
 STATE = ROOT / "state" / "posted.json"
 TZ = ZoneInfo("America/Sao_Paulo")
 
-# Nichos exclusivos para Dona Maria (melhores donas de casa)
+# Grupos 100% alinhados ao público feminino
 GRUPOS = [
-    {"nome": "Casa & Organização", "cats": ["MLB1574", "MLB263532"]},          # Casa / Organização e Limpeza
-    {"nome": "Eletrodomésticos & Cozinha", "cats": ["MLB5726", "MLB1578"]},    # Eletrodomésticos / Cozinha
-    {"nome": "Limpeza & Utilidades", "cats": ["MLB263532", "MLB1574"]},        # Limpeza / Casa
-    {"nome": "Decoração & Conforto", "cats": ["MLB1574", "MLB5726"]},          # Casa / Eletro
+    {
+        "nome": "Moda Feminina",
+        "cats": ["MLB1430"],  # Calçados, Roupas e Bolsas
+        "queries": ["vestido feminino", "blusa feminina", "calça feminina"],
+    },
+    {
+        "nome": "Calçados & Bolsas",
+        "cats": ["MLB1430"],
+        "queries": ["tênis feminino", "sandália feminina", "bolsa feminina"],
+    },
+    {
+        "nome": "Beleza & Cuidados",
+        "cats": ["MLB1246"],  # Beleza e Cuidado Pessoal
+        "queries": ["maquiagem", "skincare", "perfume feminino"],
+    },
+    {
+        "nome": "Casa, Cozinha & Acessórios",
+        "cats": ["MLB1574", "MLB5726", "MLB3937"],  # Casa / Eletro / Joias e Relógios
+        "queries": ["utensílio cozinha", "organização casa", "colar feminino"],
+    },
 ]
 
 CAT_NOMES = {
+    "MLB1430": "Moda",
+    "MLB1246": "Beleza",
     "MLB1574": "Casa",
     "MLB5726": "Eletrodomésticos",
-    "MLB263532": "Organização e Limpeza",
-    "MLB1578": "Cozinha",
-    "MLB1246": "Beleza",
+    "MLB3937": "Joias e Relógios",
 }
 
+# Filtra produtos claramente masculinos / infantis meninos
+BLOQUEIO = re.compile(
+    r"\b(masculin[oa]|homem|homens|menino|meninos|boy|man\b|men'?s|"
+    r"camisa social masculina|cueca|barbeador|barba|"
+    r"camiseta masculina|bermuda masculina|tênis masculino)\b",
+    re.I,
+)
+
+# Sinais de produto feminino / dona de casa (ajuda em categorias mistas)
+SINAL_FEM = re.compile(
+    r"\b(feminin[oa]|mulher|mulheres|dama|ladies|woman|women|"
+    r"vestido|blusa|saia|sutiã|sutia|calcinha|batom|maquiagem|"
+    r"sandália|sandalia|scarpin|bolsa|colares?|brinco|"
+    r"cozinha|air fryer|liquidificador|organizador|panela)\b",
+    re.I,
+)
+
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.0", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/1.2", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -60,9 +93,100 @@ def link_afiliado(url):
     return url + sep + AFF_PARAMS.format(id=AFF_ID)
 
 
-def montar_produto(pid, tipo, h, categoria):
+def normalizar_titulo(t: str) -> str:
+    t = (t or "").lower()
+    t = re.sub(r"[^a-z0-9áéíóúâêôãõç\s]", " ", t)
+    t = re.sub(r"\s+", " ", t).strip()
+    return t[:80]
+
+
+def titulo_ok_feminino(titulo: str, exigir_sinal: bool = False) -> bool:
+    if not titulo:
+        return False
+    if BLOQUEIO.search(titulo):
+        return False
+    if exigir_sinal and not SINAL_FEM.search(titulo):
+        return False
+    return True
+
+
+def carregar_estado():
+    STATE.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        raw = STATE.read_text(encoding="utf-8").strip() or "{}"
+        data = json.loads(raw)
+        if not isinstance(data, dict):
+            return {"ids": {}, "titulos": {}}
+        if data and "ids" not in data:
+            return {"ids": data, "titulos": {}}
+        data.setdefault("ids", {})
+        data.setdefault("titulos", {})
+        return data
+    except Exception as e:
+        print("Aviso: estado inválido, reiniciando:", e)
+        return {"ids": {}, "titulos": {}}
+
+
+def limpar_estado(estado, agora):
+    limite = agora - dt.timedelta(days=REPETIR_APOS_DIAS)
+    ids_limpos, titulos_limpos = {}, {}
+    for k, v in estado.get("ids", {}).items():
+        try:
+            if dt.datetime.fromisoformat(v) > limite:
+                ids_limpos[k] = v
+        except Exception:
+            continue
+    for k, v in estado.get("titulos", {}).items():
+        try:
+            if dt.datetime.fromisoformat(v) > limite:
+                titulos_limpos[k] = v
+        except Exception:
+            continue
+    return {"ids": ids_limpos, "titulos": titulos_limpos}
+
+
+def ja_postado(estado, pid, titulo):
+    if pid in estado["ids"]:
+        return True
+    nt = normalizar_titulo(titulo)
+    return bool(nt and nt in estado["titulos"])
+
+
+def registrar_postado(estado, pid, titulo, agora):
+    estado["ids"][pid] = agora.isoformat()
+    nt = normalizar_titulo(titulo)
+    if nt:
+        estado["titulos"][nt] = agora.isoformat()
+
+
+def escolher_oferta(results):
+    if not results:
+        return None
+    validos = []
+    for it in results:
+        try:
+            preco = float(it.get("price") or 0)
+        except (TypeError, ValueError):
+            continue
+        if preco <= 0:
+            continue
+        frete = (it.get("shipping") or {}).get("free_shipping", False)
+        validos.append({"item": it, "preco": preco, "frete": frete})
+    if not validos:
+        return None
+    precos = sorted(v["preco"] for v in validos)
+    mediana = precos[len(precos) // 2]
+    piso = mediana * 0.30 if mediana > 0 else 0
+    validos = [v for v in validos if v["preco"] >= piso] or validos
+    com_frete = [v for v in validos if v["frete"]]
+    pool = com_frete if com_frete else validos
+    return min(pool, key=lambda x: x["preco"])
+
+
+def montar_produto(pid, h, categoria, exigir_sinal=False):
     titulo, foto = "", ""
     preco, frete = 0.0, False
+    item_id = None
 
     try:
         rp = S.get(f"{API}/products/{pid}", headers=h, timeout=15)
@@ -75,19 +199,30 @@ def montar_produto(pid, tipo, h, categoria):
     except Exception as e:
         print(f"  products/{pid}:", e)
 
+    if not titulo_ok_feminino(titulo, exigir_sinal=exigir_sinal):
+        return None
+
     try:
         ri = S.get(f"{API}/products/{pid}/items", headers=h, timeout=15)
         if ri.status_code == 200:
             results = ri.json().get("results") or []
-            if results:
-                best = min(results, key=lambda x: x.get("price") or 999999)
-                preco = float(best.get("price") or 0)
-                frete = (best.get("shipping") or {}).get("free_shipping", False)
+            escolha = escolher_oferta(results)
+            if escolha:
+                preco = escolha["preco"]
+                frete = escolha["frete"]
+                item_id = escolha["item"].get("id") or escolha["item"].get("item_id")
     except Exception as e:
         print(f"  items/{pid}:", e)
 
     if not titulo or preco <= 0:
         return None
+
+    if item_id:
+        mid = str(item_id)
+        mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
+        link = link_afiliado(f"https://produto.mercadolivre.com.br/{mid_fmt}")
+    else:
+        link = link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}")
 
     return {
         "id": pid,
@@ -96,55 +231,128 @@ def montar_produto(pid, tipo, h, categoria):
         "imagem": foto,
         "frete_gratis": frete,
         "categoria": categoria,
-        "link": link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}"),
+        "link": link,
+        "item_id": item_id,
     }
 
 
-def um_da_categoria(cat_id, h, vistos):
-    """Busca produto na categoria. Prefere frete grátis quando disponível."""
+def buscar_highlights(cat_id, h, vistos_ids, vistos_titulos, exigir_sinal=False):
     nome = CAT_NOMES.get(cat_id, cat_id)
     try:
         r = S.get(f"{API}/highlights/MLB/category/{cat_id}", headers=h, timeout=20)
         if r.status_code != 200:
             print(f"Highlights {nome}: {r.status_code}")
             return None
-
-        candidatos = []
-        for item in r.json().get("content", [])[:15]:
+        for item in r.json().get("content", [])[:20]:
             pid = item.get("id")
-            if not pid or pid in vistos:
+            if not pid or pid in vistos_ids:
                 continue
-            p = montar_produto(pid, item.get("type", "PRODUCT"), h, nome)
-            if p:
-                candidatos.append(p)
-
-        if not candidatos:
-            return None
-
-        # Prioriza frete grátis, senão pega o primeiro válido
-        com_frete = [c for c in candidatos if c.get("frete_gratis")]
-        escolhido = com_frete[0] if com_frete else candidatos[0]
-
-        print(f"  OK [{nome}] R$ {escolhido['preco']:.2f} — {escolhido['titulo'][:50]}"
-              + (" 🚚" if escolhido.get("frete_gratis") else ""))
-        return escolhido
+            p = montar_produto(pid, h, nome, exigir_sinal=exigir_sinal)
+            if not p:
+                continue
+            nt = normalizar_titulo(p["titulo"])
+            if nt and nt in vistos_titulos:
+                continue
+            print(f"  OK [{nome}/highlight] R$ {p['preco']:.2f} — {p['titulo'][:50]}"
+                  + (" 🚚" if p.get("frete_gratis") else ""))
+            return p
     except Exception as e:
-        print(f"Erro {nome}:", e)
+        print(f"Erro highlights {nome}:", e)
+    return None
+
+
+def buscar_por_query(query, h, vistos_ids, vistos_titulos, categoria_label):
+    """Fallback: busca no site com termo feminino."""
+    try:
+        r = S.get(
+            f"{API}/sites/MLB/search",
+            headers=h,
+            params={"q": query, "limit": 20, "sort": "relevance"},
+            timeout=20,
+        )
+        if r.status_code != 200:
+            print(f"Search '{query}': {r.status_code}")
+            return None
+        for item in r.json().get("results", []):
+            # prefer catalog product id quando existir
+            pid = item.get("catalog_product_id") or item.get("id")
+            if not pid or pid in vistos_ids:
+                continue
+            titulo = item.get("title") or ""
+            if not titulo_ok_feminino(titulo, exigir_sinal=True):
+                continue
+            nt = normalizar_titulo(titulo)
+            if nt and nt in vistos_titulos:
+                continue
+
+            # se for item (MLB123), monta direto sem /products
+            if str(pid).startswith("MLB") and not str(pid).startswith("MLB") is False:
+                pass
+
+            # tenta via product catalog
+            if item.get("catalog_product_id"):
+                p = montar_produto(item["catalog_product_id"], h, categoria_label, exigir_sinal=True)
+                if p:
+                    print(f"  OK [{categoria_label}/search] R$ {p['preco']:.2f} — {p['titulo'][:50]}")
+                    return p
+
+            # fallback: dados do próprio search result
+            try:
+                preco = float(item.get("price") or 0)
+            except (TypeError, ValueError):
+                continue
+            if preco <= 0:
+                continue
+            frete = (item.get("shipping") or {}).get("free_shipping", False)
+            foto = ""
+            thumbs = item.get("thumbnail") or ""
+            if thumbs:
+                foto = thumbs.replace("http://", "https://")
+            mid = str(item.get("id", ""))
+            mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
+            p = {
+                "id": str(pid),
+                "titulo": titulo,
+                "preco": preco,
+                "imagem": foto,
+                "frete_gratis": frete,
+                "categoria": categoria_label,
+                "link": link_afiliado(f"https://produto.mercadolivre.com.br/{mid_fmt}"),
+                "item_id": mid,
+            }
+            print(f"  OK [{categoria_label}/search] R$ {p['preco']:.2f} — {p['titulo'][:50]}")
+            return p
+    except Exception as e:
+        print(f"Erro search '{query}':", e)
+    return None
+
+
+def um_do_grupo(grupo, h, vistos_ids, vistos_titulos):
+    # 1) highlights das categorias (moda exige sinal feminino no título)
+    exigir = grupo["nome"] in ("Moda Feminina", "Calçados & Bolsas")
+    for cat_id in grupo["cats"]:
+        p = buscar_highlights(cat_id, h, vistos_ids, vistos_titulos, exigir_sinal=exigir)
+        if p:
+            return p
+    # 2) fallback por busca textual
+    for q in grupo.get("queries", []):
+        p = buscar_por_query(q, h, vistos_ids, vistos_titulos, grupo["nome"])
+        if p:
+            return p
     return None
 
 
 def montar_diversificado(h, estado):
-    """1 produto de cada grupo (até 4), evitando repetidos."""
-    vistos = set(estado.keys())
+    vistos_ids = set(estado["ids"].keys())
+    vistos_titulos = set(estado["titulos"].keys())
     escolhidos = []
     for grupo in GRUPOS:
-        p = None
-        for cat_id in grupo["cats"]:
-            p = um_da_categoria(cat_id, h, vistos)
-            if p:
-                break
+        p = um_do_grupo(grupo, h, vistos_ids, vistos_titulos)
         if p:
-            vistos.add(p["id"])
+            vistos_ids.add(p["id"])
+            nt = normalizar_titulo(p["titulo"])
+            if nt:
+                vistos_titulos.add(nt)
             escolhidos.append(p)
         if len(escolhidos) >= MAX_POSTS:
             break
@@ -160,16 +368,16 @@ def postar(p):
     titulo = html.escape(p["titulo"][:120])
     preco = preco_br(p["preco"])
     link = html.escape(p["link"])
-
     frete_linha = "🚚 <b>Frete grátis</b>\n" if p.get("frete_gratis") else ""
+    preco_label = f"a partir de <b>{preco}</b>" if p.get("item_id") else f"<b>{preco}</b>"
 
     texto = (
-        f"🏡 <b>Dona Maria indica — {cat}</b>\n\n"
+        f"💕 <b>Dona Maria indica — {cat}</b>\n\n"
         f"📦 {titulo}\n\n"
-        f"💰 <b>{preco}</b>\n"
+        f"💰 {preco_label}\n"
         f"{frete_linha}"
         f"\n👉 <a href=\"{link}\">Ver oferta no Mercado Livre</a>\n\n"
-        f"<i>Selecionado especialmente para as melhores donas de casa · Link de afiliado · Preços podem variar</i>"
+        f"<i>Selecionado para você · Link de afiliado · Preços podem variar</i>"
     )
 
     if not TG_TOKEN or not TG_CHAT:
@@ -190,16 +398,16 @@ def postar(p):
 
 
 def pode_postar_agora(agora: dt.datetime) -> bool:
-    """
-    07h–22h → toda hora
-    23h, 02h e 05h → madrugada (a cada 3 horas)
-    """
     h = agora.hour
     if 7 <= h <= 22:
         return True
     if h in (23, 2, 5):
         return True
     return False
+
+
+def salvar_estado(estado):
+    STATE.write_text(json.dumps(estado, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def main():
@@ -209,38 +417,20 @@ def main():
     if not h:
         return
 
-    STATE.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        raw = STATE.read_text(encoding="utf-8").strip() or "{}"
-        estado = json.loads(raw)
-        if not isinstance(estado, dict):
-            estado = {}
-    except Exception as e:
-        print("Aviso: estado inválido, reiniciando:", e)
-        estado = {}
-
-    # Remove produtos antigos demais (fora da janela de anti-repetição)
-    limite = agora - dt.timedelta(days=REPETIR_APOS_DIAS)
-    estado_limpo = {}
-    for k, v in estado.items():
-        try:
-            if dt.datetime.fromisoformat(v) > limite:
-                estado_limpo[k] = v
-        except Exception:
-            continue
-    estado = estado_limpo
-    print(f"Produtos já postados (últimos {REPETIR_APOS_DIAS} dias):", len(estado))
+    estado = limpar_estado(carregar_estado(), agora)
+    print(f"Produtos já postados (últimos {REPETIR_APOS_DIAS} dias):", len(estado["ids"]))
 
     ranking = montar_diversificado(h, estado)
     print("Produtos selecionados:", len(ranking))
 
     TRENDS.parent.mkdir(parents=True, exist_ok=True)
-    TRENDS.write_text(json.dumps({"atualizado": agora.isoformat(), "itens": ranking},
+    trends_itens = [{k: v for k, v in p.items() if k != "item_id"} for p in ranking]
+    TRENDS.write_text(json.dumps({"atualizado": agora.isoformat(), "itens": trends_itens},
                                  ensure_ascii=False, indent=2), encoding="utf-8")
 
     if not ranking:
         print("Nada a postar")
-        STATE.write_text(json.dumps(estado, indent=2, ensure_ascii=False), encoding="utf-8")
+        salvar_estado(estado)
         return
     if not (TG_TOKEN and TG_CHAT):
         print("Falta Telegram")
@@ -248,21 +438,22 @@ def main():
     if not pode_postar_agora(agora):
         print(f"Fora do horário de postagem (hora atual: {agora.hour}h). "
               "Dia: 7h–22h | Madrugada: 23h, 2h e 5h")
-        STATE.write_text(json.dumps(estado, indent=2, ensure_ascii=False), encoding="utf-8")
+        salvar_estado(estado)
         return
 
     enviados = 0
     for p in ranking:
         if enviados >= MAX_POSTS:
             break
-        if p["id"] in estado:
+        if ja_postado(estado, p["id"], p["titulo"]):
             print(f"  Já postado recentemente, pulando: {p['id']}")
             continue
         if postar(p):
-            estado[p["id"]] = agora.isoformat()
+            registrar_postado(estado, p["id"], p["titulo"], agora)
             enviados += 1
+            salvar_estado(estado)
 
-    STATE.write_text(json.dumps(estado, indent=2, ensure_ascii=False), encoding="utf-8")
+    salvar_estado(estado)
     print("Postagens enviadas:", enviados)
 
 
