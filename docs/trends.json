@@ -1,23 +1,23 @@
 {
-  "atualizado": "2026-10-22T11:16:42.693557-03:00",
+  "atualizado": "2026-10-22T13:16:33.821899-03:00",
   "itens": [
     {
-      "id": "MLB37257779",
-      "titulo": "Shampoo Anticaspa Cabelos Normais a Oleosos, Dercos DS Vichy, 300g",
-      "preco": 184.67,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_646464-MLA112810161826_072026-F.jpg",
+      "id": "MLB52363091",
+      "titulo": "Escova Progressiva 150g - Fashion Gold",
+      "preco": 99.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_861957-MLA108178234350_032026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza",
-      "link": "https://produto.mercadolivre.com.br/MLB-5759894972?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5188708943?matt_tool=71970283"
     },
     {
-      "id": "MLB19745649",
-      "titulo": "Água sanitária e alvejante cloro ativo 5 litros Ypê",
-      "preco": 15.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_950605-MLA99927683925_112025-F.jpg",
-      "frete_gratis": false,
+      "id": "MLB23958420",
+      "titulo": "Detergente Ypê Neutro 5 Litros",
+      "preco": 59.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_941769-MLA99925691215_112025-F.jpg",
+      "frete_gratis": true,
       "categoria": "Casa",
-      "link": "https://produto.mercadolivre.com.br/MLB-3795381493?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-6740882936?matt_tool=71970283"
     }
   ]
 }
