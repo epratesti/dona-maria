@@ -2,7 +2,9 @@ name: Dona Maria Radar
 
 on:
   schedule:
-    - cron: "25 * * * *"   # toda hora no minuto 25 (UTC) — evita conflito com o radar-ml
+    # Dois horários por hora → mais chance do GitHub disparar (cron é irregular)
+    - cron: "25 * * * *"
+    - cron: "55 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -40,4 +42,13 @@ jobs:
           git config user.name "dona-maria-bot"
           git config user.email "dona-maria-bot@users.noreply.github.com"
           git add docs/trends.json state/posted.json || true
-          git diff --cached --quiet || (git commit -m "Atualiza tendências Dona Maria $(date -u +%Y-%m-%dT%H:%M)" && git push)
+          if git diff --cached --quiet; then
+            echo "Nenhuma mudança para commit"
+            exit 0
+          fi
+          git commit -m "Atualiza tendências Dona Maria $(date -u +%Y-%m-%dT%H:%M)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && break
+            echo "Push falhou (tentativa $i), tentando de novo..."
+            sleep 3
+          done
