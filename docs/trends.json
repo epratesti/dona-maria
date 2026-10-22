@@ -1,23 +1,23 @@
 {
-  "atualizado": "2026-10-22T15:14:10.114601-03:00",
+  "atualizado": "2026-10-22T15:39:26.206383-03:00",
   "itens": [
     {
-      "id": "MLB19767143",
-      "titulo": "Protetor Solar Facial Alta Cobertura Anthelios La Roche-Posay Cor 3.0 30g",
-      "preco": 67.4,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_728452-MLA103883256579_012026-F.jpg",
-      "frete_gratis": false,
+      "id": "MLB26080271",
+      "titulo": "L'Oréal Paris Elseve Óleo Extraordinário 100ml - Leave In Anti Frizz Protetor Térmico Tratamento Reconstrutor Para Todos Os Tipos De Cabelo",
+      "preco": 43.49,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_605503-MLA114497234356_082026-F.jpg",
+      "frete_gratis": true,
       "categoria": "Beleza",
-      "link": "https://produto.mercadolivre.com.br/MLB-3340533709?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5439740605?matt_tool=71970283"
     },
     {
-      "id": "MLB19694427",
-      "titulo": "Escova Secadora Britânia Bivolt 1300w Soft Bec07r Original",
-      "preco": 99.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_734805-MLA114128393951_072026-F.jpg",
+      "id": "MLB16016316",
+      "titulo": "Batedeira Prática Mondial 400W - B-44-B",
+      "preco": 74.75,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_877834-MLA99469550350_112025-F.jpg",
       "frete_gratis": true,
       "categoria": "Eletrodomésticos",
-      "link": "https://produto.mercadolivre.com.br/MLB-5139760693?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5419224953?matt_tool=71970283"
     }
   ]
 }
