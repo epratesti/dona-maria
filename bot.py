@@ -1,7 +1,7 @@
 """Dona Maria: ofertas femininas → Telegram.
-Produtos por grupo (moda, calçados, beleza, íntimos, casa).
-Filtro leve: bloqueia só títulos masculinos (queries já são femininas).
-Sem bloqueio entre runs (só evita duplicata na mesma execução).
+Filtro leve: bloqueia só títulos masculinos.
+Busca: se /search der 403, tenta sem token; fallback highlights por categoria.
+Sem bloqueio entre runs.
 Horário SP: 07h–22h | madrugada 23h, 02h, 05h
 """
 import os, json, html, re, random, datetime as dt
@@ -38,9 +38,8 @@ GRUPOS = [
         "cats": ["MLB1430"],
         "queries": [
             "lingerie feminina", "conjunto lingerie", "sutiã", "calcinha feminina",
-            "soutien", "camisola feminina", "robe feminino", "baby doll",
-            "body lingerie", "meia-calça feminina", "kit calcinha", "kit sutiã",
-            "pijama feminino", "short doll", "sutiã push up", "calcinha fio dental",
+            "camisola feminina", "pijama feminino", "kit calcinha", "kit sutiã",
+            "sutiã push up", "baby doll", "body lingerie",
         ],
     },
     {
@@ -48,19 +47,16 @@ GRUPOS = [
         "cats": ["MLB1430"],
         "queries": [
             "tênis feminino", "sandália feminina", "bolsa feminina", "chinelo feminino",
-            "scarpin feminino", "mocassim feminino", "carteira feminina",
-            "rasteirinha feminina", "bota feminina", "sapatilha feminina",
-            "mochila feminina", "clutch feminina",
+            "scarpin feminino", "sapatilha feminina", "bota feminina",
+            "rasteirinha feminina", "mochila feminina", "carteira feminina",
         ],
     },
     {
         "nome": "Beleza & Cuidados",
         "cats": ["MLB1246"],
         "queries": [
-            "maquiagem", "skincare", "perfume feminino", "batom",
-            "kit maquiagem", "esmalte", "base maquiagem", "máscara de cílios",
-            "hidratante corporal", "shampoo", "condicionador",
-            "secador de cabelo", "chapinha", "escova modeladora",
+            "maquiagem", "perfume feminino", "batom", "kit maquiagem", "esmalte",
+            "skincare", "shampoo", "secador de cabelo", "chapinha",
         ],
     },
     {
@@ -68,29 +64,30 @@ GRUPOS = [
         "cats": ["MLB1574", "MLB3937"],
         "queries": [
             "colar feminino", "brinco feminino", "pulseira feminina",
-            "anel feminino", "relógio feminino", "organizador maquiagem",
-            "nécessaire", "jogo de lençol", "toalha de banho", "cortina",
-            "air fryer", "liquidificador",
+            "anel feminino", "relógio feminino", "jogo de lençol",
+            "air fryer", "liquidificador", "organizador maquiagem",
         ],
     },
 ]
 
-# Só bloqueia o que for claramente masculino
+CAT_NOMES = {
+    "MLB1430": "Moda", "MLB1246": "Beleza", "MLB1574": "Casa", "MLB3937": "Joias",
+}
+
 BLOQUEIO = re.compile(
     r"\b("
     r"masculin[oa]|para homem|para homens|menino|meninos|"
-    r"cueca masculina|barbeador|barba|"
+    r"cueca masculina|barbeador|"
     r"camiseta masculina|bermuda masculina|tênis masculino|"
     r"perfume masculino|relógio masculino|carteira masculina|"
     r"cinto masculino|jaqueta masculina|calça masculina|"
-    r"sapato social masculino|chinelo masculino|"
-    r"camisa social masculina"
+    r"sapato social masculino|chinelo masculino|camisa social masculina"
     r")\b",
     re.I,
 )
 
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.6", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/1.7", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -119,12 +116,9 @@ def normalizar_titulo(t: str) -> str:
 
 
 def titulo_ok(titulo: str) -> bool:
-    """Rejeita só títulos claramente masculinos."""
     if not titulo:
         return False
-    if BLOQUEIO.search(titulo):
-        return False
-    return True
+    return not BLOQUEIO.search(titulo)
 
 
 def carregar_estado():
@@ -182,6 +176,70 @@ def registrar_postado(estado, pid, titulo, agora):
         estado["titulos"][nt] = agora.isoformat()
 
 
+def escolher_oferta(results):
+    if not results:
+        return None
+    validos = []
+    for it in results:
+        try:
+            preco = float(it.get("price") or 0)
+        except (TypeError, ValueError):
+            continue
+        if preco <= 0:
+            continue
+        frete = (it.get("shipping") or {}).get("free_shipping", False)
+        validos.append({"item": it, "preco": preco, "frete": frete})
+    if not validos:
+        return None
+    precos = sorted(v["preco"] for v in validos)
+    mediana = precos[len(precos) // 2]
+    piso = mediana * 0.30 if mediana > 0 else 0
+    validos = [v for v in validos if v["preco"] >= piso] or validos
+    com_frete = [v for v in validos if v["frete"]]
+    pool = com_frete if com_frete else validos
+    return min(pool, key=lambda x: x["preco"])
+
+
+def montar_produto(pid, h, categoria):
+    titulo, foto = "", ""
+    preco, frete = 0.0, False
+    item_id = None
+    try:
+        rp = S.get(f"{API}/products/{pid}", headers=h or {}, timeout=15)
+        if rp.status_code == 200:
+            d = rp.json()
+            titulo = d.get("name") or d.get("title") or ""
+            pics = d.get("pictures") or []
+            if pics:
+                foto = (pics[0].get("url") or pics[0].get("secure_url") or "").replace("http://", "https://")
+    except Exception as e:
+        print(f"  products/{pid}:", e)
+    if not titulo_ok(titulo):
+        return None
+    try:
+        ri = S.get(f"{API}/products/{pid}/items", headers=h or {}, timeout=15)
+        if ri.status_code == 200:
+            escolha = escolher_oferta(ri.json().get("results") or [])
+            if escolha:
+                preco = escolha["preco"]
+                frete = escolha["frete"]
+                item_id = escolha["item"].get("id") or escolha["item"].get("item_id")
+    except Exception as e:
+        print(f"  items/{pid}:", e)
+    if not titulo or preco <= 0:
+        return None
+    if item_id:
+        mid = str(item_id)
+        mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
+        link = link_afiliado(f"https://produto.mercadolivre.com.br/{mid_fmt}")
+    else:
+        link = link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}")
+    return {
+        "id": pid, "titulo": titulo, "preco": preco, "imagem": foto,
+        "frete_gratis": frete, "categoria": categoria, "link": link, "item_id": item_id,
+    }
+
+
 def produto_search(item, label):
     titulo = item.get("title") or ""
     if not titulo_ok(titulo):
@@ -201,30 +259,35 @@ def produto_search(item, label):
     return {
         "id": str(pid), "titulo": titulo, "preco": preco, "imagem": foto,
         "frete_gratis": frete, "categoria": label,
-        "link": link_afiliado(permalink),
-        "item_id": mid,
+        "link": link_afiliado(permalink), "item_id": mid,
     }
+
+
+def ml_get(url, h, params=None):
+    """GET com token; se 403, tenta sem Authorization."""
+    r = S.get(url, headers=h or {}, params=params, timeout=25)
+    if r.status_code == 403 and h:
+        r = S.get(url, headers={"User-Agent": "dona-maria/1.7", "Accept": "application/json"},
+                  params=params, timeout=25)
+    return r
 
 
 def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, quantos):
     achados = []
     try:
-        offset = random.choice([0, 0, 10, 20, 30, 40])
+        offset = random.choice([0, 0, 10, 20, 30])
         params = {
-            "q": query,
-            "limit": 50,
-            "offset": offset,
+            "q": query, "limit": 50, "offset": offset,
             "sort": random.choice(["relevance", "price_asc", "sold_quantity_desc"]),
         }
         if cat_id:
             params["category"] = cat_id
-        r = S.get(f"{API}/sites/MLB/search", headers=h, params=params, timeout=25)
+        r = ml_get(f"{API}/sites/MLB/search", h, params)
         if r.status_code != 200:
             print(f"  Search '{query}' status={r.status_code}")
             return achados
         results = list(r.json().get("results") or [])
         if not results:
-            print(f"  Search '{query}': 0 resultados")
             return achados
         random.shuffle(results)
         for item in results:
@@ -249,17 +312,59 @@ def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, qua
     return achados
 
 
+def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_titulos, quantos, label):
+    nome = label or CAT_NOMES.get(cat_id, cat_id)
+    achados = []
+    try:
+        r = ml_get(f"{API}/highlights/MLB/category/{cat_id}", h)
+        if r.status_code != 200:
+            print(f"  Highlights {cat_id} status={r.status_code}")
+            return achados
+        items = list(r.json().get("content", [])[:40])
+        random.shuffle(items)
+        for item in items:
+            if len(achados) >= quantos:
+                break
+            pid = item.get("id")
+            if not pid or str(pid) in vistos_ids:
+                continue
+            p = montar_produto(pid, h, nome)
+            if not p:
+                continue
+            nt = normalizar_titulo(p["titulo"])
+            if nt and nt in vistos_titulos:
+                continue
+            vistos_ids.add(p["id"])
+            if nt:
+                vistos_titulos.add(nt)
+            achados.append(p)
+            print(f"  OK [{nome}/hl] R$ {p['preco']:.2f} — {p['titulo'][:50]}")
+    except Exception as e:
+        print(f"Erro highlights {cat_id}:", e)
+    return achados
+
+
 def varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, quantos):
     achados = []
     queries = list(grupo.get("queries", []))
     random.shuffle(queries)
-    for q in queries:
+    # no máximo 4 queries por grupo (evita martelar a API se der 403)
+    for q in queries[:4]:
         if len(achados) >= quantos:
             break
         falta = quantos - len(achados)
         cat = random.choice(grupo["cats"]) if grupo.get("cats") else None
         novos = buscar_varios_query(q, cat, h, vistos_ids, vistos_titulos, grupo["nome"], falta)
         achados.extend(novos)
+    if len(achados) < quantos:
+        for cat_id in grupo.get("cats", []):
+            if len(achados) >= quantos:
+                break
+            falta = quantos - len(achados)
+            novos = buscar_varios_highlights(
+                cat_id, h, vistos_ids, vistos_titulos, falta, grupo["nome"]
+            )
+            achados.extend(novos)
     return achados
 
 
@@ -328,7 +433,7 @@ def main():
     print("Iniciando Dona Maria", agora.isoformat())
     print(f"Meta: {POSTS_POR_GRUPO} por grupo, máx {MAX_POSTS} total")
     print(f"Bloqueio entre runs: {'DESLIGADO' if REPETIR_APOS_DIAS <= 0 else f'{REPETIR_APOS_DIAS} dias'}")
-    print("Filtro: bloqueia só títulos masculinos (afrouxado)")
+    print("Filtro: bloqueia só títulos masculinos")
     h = headers_ml()
     if not h:
         return
