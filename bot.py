@@ -1,6 +1,7 @@
 """Dona Maria: ofertas femininas → Telegram.
-Filtro leve: bloqueia só títulos masculinos.
-Busca: se /search der 403, tenta sem token; fallback highlights por categoria.
+Filtro: bloqueia masculino + limpeza + itens genéricos de casa.
+Mostra preço original e com desconto quando o ML informar (de R$ X por R$ Y).
+Busca: se /search der 403, tenta sem token; fallback highlights.
 Sem bloqueio entre runs.
 Horário SP: 07h–22h | madrugada 23h, 02h, 05h
 """
@@ -56,16 +57,18 @@ GRUPOS = [
         "cats": ["MLB1246"],
         "queries": [
             "maquiagem", "perfume feminino", "batom", "kit maquiagem", "esmalte",
-            "skincare", "shampoo", "secador de cabelo", "chapinha",
+            "skincare", "shampoo feminino", "secador de cabelo", "chapinha",
+            "máscara cílios", "base maquiagem", "hidratante facial",
         ],
     },
     {
-        "nome": "Casa & Acessórios Femininos",
-        "cats": ["MLB1574", "MLB3937"],
+        "nome": "Acessórios Femininos",
+        "cats": ["MLB3937", "MLB1430"],
         "queries": [
             "colar feminino", "brinco feminino", "pulseira feminina",
-            "anel feminino", "relógio feminino", "jogo de lençol",
-            "air fryer", "liquidificador", "organizador maquiagem",
+            "anel feminino", "relógio feminino", "cinto feminino",
+            "óculos de sol feminino", "tiara feminina", "lenço feminino",
+            "organizador maquiagem", "nécessaire feminina",
         ],
     },
 ]
@@ -74,6 +77,7 @@ CAT_NOMES = {
     "MLB1430": "Moda", "MLB1246": "Beleza", "MLB1574": "Casa", "MLB3937": "Joias",
 }
 
+# Masculino + limpeza + casa genérica / eletro que não são o foco do canal
 BLOQUEIO = re.compile(
     r"\b("
     r"masculin[oa]|para homem|para homens|menino|meninos|"
@@ -81,13 +85,20 @@ BLOQUEIO = re.compile(
     r"camiseta masculina|bermuda masculina|tênis masculino|"
     r"perfume masculino|relógio masculino|carteira masculina|"
     r"cinto masculino|jaqueta masculina|calça masculina|"
-    r"sapato social masculino|chinelo masculino|camisa social masculina"
+    r"sapato social masculino|chinelo masculino|camisa social masculina|"
+    # limpeza e higiene doméstica
+    r"detergente|sabão|sabao|amaciante|desinfetante|água sanitária|agua sanitaria|"
+    r"papel higi[eê]nico|papel toalha|esponja|multiuso|limpador|"
+    r"alvejante|cloro|yp[eê]|omo\b|vanish|ajax|"
+    # eletro / casa genérica que poluíram o canal
+    r"ducha eletr[oô]nica|chuveiro el[eé]trico|torneira|"
+    r"vassoura|rodo|balde|pano de ch[aã]o"
     r")\b",
     re.I,
 )
 
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.7", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/1.8", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -119,6 +130,27 @@ def titulo_ok(titulo: str) -> bool:
     if not titulo:
         return False
     return not BLOQUEIO.search(titulo)
+
+
+def extrair_precos(obj) -> tuple:
+    """Retorna (preco_atual, preco_original_ou_None)."""
+    try:
+        preco = float(obj.get("price") or 0)
+    except (TypeError, ValueError):
+        preco = 0.0
+    original = None
+    for key in ("original_price", "base_price"):
+        raw = obj.get(key)
+        if raw is None:
+            continue
+        try:
+            val = float(raw)
+        except (TypeError, ValueError):
+            continue
+        if val > preco > 0:
+            original = val
+            break
+    return preco, original
 
 
 def carregar_estado():
@@ -181,28 +213,30 @@ def escolher_oferta(results):
         return None
     validos = []
     for it in results:
-        try:
-            preco = float(it.get("price") or 0)
-        except (TypeError, ValueError):
-            continue
+        preco, original = extrair_precos(it)
         if preco <= 0:
             continue
         frete = (it.get("shipping") or {}).get("free_shipping", False)
-        validos.append({"item": it, "preco": preco, "frete": frete})
+        validos.append({
+            "item": it, "preco": preco, "original": original, "frete": frete,
+        })
     if not validos:
         return None
-    precos = sorted(v["preco"] for v in validos)
+    # prioriza quem tem desconto real
+    com_desc = [v for v in validos if v["original"] and v["original"] > v["preco"]]
+    pool_base = com_desc if com_desc else validos
+    precos = sorted(v["preco"] for v in pool_base)
     mediana = precos[len(precos) // 2]
     piso = mediana * 0.30 if mediana > 0 else 0
-    validos = [v for v in validos if v["preco"] >= piso] or validos
-    com_frete = [v for v in validos if v["frete"]]
-    pool = com_frete if com_frete else validos
+    pool_base = [v for v in pool_base if v["preco"] >= piso] or pool_base
+    com_frete = [v for v in pool_base if v["frete"]]
+    pool = com_frete if com_frete else pool_base
     return min(pool, key=lambda x: x["preco"])
 
 
 def montar_produto(pid, h, categoria):
     titulo, foto = "", ""
-    preco, frete = 0.0, False
+    preco, original, frete = 0.0, None, False
     item_id = None
     try:
         rp = S.get(f"{API}/products/{pid}", headers=h or {}, timeout=15)
@@ -222,8 +256,17 @@ def montar_produto(pid, h, categoria):
             escolha = escolher_oferta(ri.json().get("results") or [])
             if escolha:
                 preco = escolha["preco"]
+                original = escolha.get("original")
                 frete = escolha["frete"]
                 item_id = escolha["item"].get("id") or escolha["item"].get("item_id")
+                # detalhe do item pode trazer original_price melhor
+                if item_id and not original:
+                    try:
+                        rd = S.get(f"{API}/items/{item_id}", headers=h or {}, timeout=12)
+                        if rd.status_code == 200:
+                            _, original = extrair_precos(rd.json())
+                    except Exception:
+                        pass
     except Exception as e:
         print(f"  items/{pid}:", e)
     if not titulo or preco <= 0:
@@ -235,19 +278,17 @@ def montar_produto(pid, h, categoria):
     else:
         link = link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}")
     return {
-        "id": pid, "titulo": titulo, "preco": preco, "imagem": foto,
-        "frete_gratis": frete, "categoria": categoria, "link": link, "item_id": item_id,
+        "id": pid, "titulo": titulo, "preco": preco, "preco_original": original,
+        "imagem": foto, "frete_gratis": frete, "categoria": categoria,
+        "link": link, "item_id": item_id,
     }
 
 
-def produto_search(item, label):
+def produto_search(item, label, h=None):
     titulo = item.get("title") or ""
     if not titulo_ok(titulo):
         return None
-    try:
-        preco = float(item.get("price") or 0)
-    except (TypeError, ValueError):
-        return None
+    preco, original = extrair_precos(item)
     if preco <= 0:
         return None
     frete = (item.get("shipping") or {}).get("free_shipping", False)
@@ -256,18 +297,30 @@ def produto_search(item, label):
     pid = item.get("catalog_product_id") or mid
     mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
     permalink = item.get("permalink") or f"https://produto.mercadolivre.com.br/{mid_fmt}"
+    # tenta original_price no detalhe do item se a busca não trouxe
+    if mid and not original:
+        try:
+            rd = S.get(f"{API}/items/{mid}", headers=h or {}, timeout=12)
+            if rd.status_code == 200:
+                d = rd.json()
+                p2, o2 = extrair_precos(d)
+                if p2 > 0:
+                    preco = p2
+                if o2:
+                    original = o2
+        except Exception:
+            pass
     return {
-        "id": str(pid), "titulo": titulo, "preco": preco, "imagem": foto,
-        "frete_gratis": frete, "categoria": label,
+        "id": str(pid), "titulo": titulo, "preco": preco, "preco_original": original,
+        "imagem": foto, "frete_gratis": frete, "categoria": label,
         "link": link_afiliado(permalink), "item_id": mid,
     }
 
 
 def ml_get(url, h, params=None):
-    """GET com token; se 403, tenta sem Authorization."""
     r = S.get(url, headers=h or {}, params=params, timeout=25)
     if r.status_code == 403 and h:
-        r = S.get(url, headers={"User-Agent": "dona-maria/1.7", "Accept": "application/json"},
+        r = S.get(url, headers={"User-Agent": "dona-maria/1.8", "Accept": "application/json"},
                   params=params, timeout=25)
     return r
 
@@ -289,7 +342,10 @@ def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, qua
         results = list(r.json().get("results") or [])
         if not results:
             return achados
-        random.shuffle(results)
+        # prioriza itens com original_price (desconto)
+        results.sort(
+            key=lambda it: 0 if (it.get("original_price") and float(it.get("original_price") or 0) > float(it.get("price") or 0)) else 1
+        )
         for item in results:
             if len(achados) >= quantos:
                 break
@@ -299,14 +355,17 @@ def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, qua
             nt = normalizar_titulo(item.get("title") or "")
             if nt and nt in vistos_titulos:
                 continue
-            p = produto_search(item, label)
+            p = produto_search(item, label, h=h)
             if not p:
                 continue
             vistos_ids.add(p["id"])
             if nt:
                 vistos_titulos.add(nt)
             achados.append(p)
-            print(f"  OK [{label}] R$ {p['preco']:.2f} — {p['titulo'][:50]}")
+            desc = ""
+            if p.get("preco_original"):
+                desc = f" (de {p['preco_original']:.2f})"
+            print(f"  OK [{label}] R$ {p['preco']:.2f}{desc} — {p['titulo'][:45]}")
     except Exception as e:
         print(f"Erro search '{query}':", e)
     return achados
@@ -338,7 +397,7 @@ def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_titulos, quantos, lab
             if nt:
                 vistos_titulos.add(nt)
             achados.append(p)
-            print(f"  OK [{nome}/hl] R$ {p['preco']:.2f} — {p['titulo'][:50]}")
+            print(f"  OK [{nome}/hl] R$ {p['preco']:.2f} — {p['titulo'][:45]}")
     except Exception as e:
         print(f"Erro highlights {cat_id}:", e)
     return achados
@@ -348,8 +407,7 @@ def varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, quantos):
     achados = []
     queries = list(grupo.get("queries", []))
     random.shuffle(queries)
-    # no máximo 4 queries por grupo (evita martelar a API se der 403)
-    for q in queries[:4]:
+    for q in queries[:5]:
         if len(achados) >= quantos:
             break
         falta = quantos - len(achados)
@@ -389,17 +447,30 @@ def preco_br(v):
     return f"R$ {v:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
+def formatar_preco_linha(p):
+    atual = p["preco"]
+    original = p.get("preco_original")
+    if original and original > atual:
+        pct = int(round((1 - atual / original) * 100))
+        linha = (
+            f"💰 De <s>{preco_br(original)}</s> por <b>{preco_br(atual)}</b>"
+        )
+        if pct >= 5:
+            linha += f" · <b>-{pct}%</b>"
+        return linha
+    return f"💰 <b>{preco_br(atual)}</b>"
+
+
 def postar(p):
     cat = html.escape(p.get("categoria", ""))
     titulo = html.escape(p["titulo"][:120])
-    preco = preco_br(p["preco"])
     link = html.escape(p["link"])
     frete_linha = "🚚 <b>Frete grátis</b>\n" if p.get("frete_gratis") else ""
-    preco_label = f"a partir de <b>{preco}</b>" if p.get("item_id") else f"<b>{preco}</b>"
+    preco_linha = formatar_preco_linha(p)
     texto = (
         f"💕 <b>Dona Maria indica — {cat}</b>\n\n"
         f"📦 {titulo}\n\n"
-        f"💰 {preco_label}\n"
+        f"{preco_linha}\n"
         f"{frete_linha}"
         f"\n👉 <a href=\"{link}\">Ver oferta no Mercado Livre</a>\n\n"
         f"<i>Selecionado para você · Link de afiliado · Preços podem variar</i>"
@@ -433,7 +504,7 @@ def main():
     print("Iniciando Dona Maria", agora.isoformat())
     print(f"Meta: {POSTS_POR_GRUPO} por grupo, máx {MAX_POSTS} total")
     print(f"Bloqueio entre runs: {'DESLIGADO' if REPETIR_APOS_DIAS <= 0 else f'{REPETIR_APOS_DIAS} dias'}")
-    print("Filtro: bloqueia só títulos masculinos")
+    print("Filtro: sem masculino, limpeza nem casa genérica; mostra de/por quando houver")
     h = headers_ml()
     if not h:
         return
