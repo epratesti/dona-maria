@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-23T19:14:35.704718-03:00",
+  "atualizado": "2026-10-23T19:23:22.591519-03:00",
   "itens": [
     {
       "id": "MLB45474714",
@@ -20,15 +20,6 @@
       "link": "https://produto.mercadolivre.com.br/MLB-4525141371?matt_tool=71970283"
     },
     {
-      "id": "MLB66452309",
-      "titulo": "Papel Higiênico Folha Dupla 30m L24p22 Personal",
-      "preco": 30.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_710576-MLA117488774728_102026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5426904247?matt_tool=71970283"
-    },
-    {
       "id": "MLB37257779",
       "titulo": "Shampoo Anticaspa Cabelos Normais a Oleosos, Dercos DS Vichy, 300g",
       "preco": 184.67,
@@ -38,31 +29,31 @@
       "link": "https://produto.mercadolivre.com.br/MLB-5759894972?matt_tool=71970283"
     },
     {
-      "id": "MLB18964467",
-      "titulo": "Principia Sérum Vitamina C-10",
-      "preco": 39.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_614742-MLA98385730409_112025-F.jpg",
+      "id": "MLB19150371",
+      "titulo": "NIVEA Hidratante Desodorante Beleza Radiante Cuidado Intenso 400ml, Hidratação Profunda 48h, Brilho Natural, Corporal, Pele Seca e Extrasseca",
+      "preco": 19.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_959443-MLA93494140268_102025-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-7851760078?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7707188478?matt_tool=71970283"
     },
     {
-      "id": "MLB24326256",
-      "titulo": "Creme Multirreparador Pele Sensível Cicaplast Baume B5+ La Roche-Posay 40ml",
-      "preco": 71.52,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_695558-MLA119937437423_102026-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3949790433?matt_tool=71970283"
-    },
-    {
-      "id": "MLB19590092",
-      "titulo": "Ducha Eletrônica Lorenzetti Loren Shower Ultra 7500W 220V Branco",
-      "preco": 109.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_638677-MLA118516851287_092026-F.jpg",
+      "id": "MLB60416809",
+      "titulo": "Hidrabene Protetor facial Solar FPS 70 Toque Seco Antissinais Clareia a pele 50g",
+      "preco": 42.89,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_655805-MLA116956226142_092026-F.jpg",
       "frete_gratis": true,
-      "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-5451116897?matt_tool=71970283"
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7750913248?matt_tool=71970283"
+    },
+    {
+      "id": "MLB51183406",
+      "titulo": "Percarbonato De Sódio 100% Puro Tira Manchas Alvejante - 1kg Calisul Original",
+      "preco": 21.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_910926-MLA104135384526_012026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-6567479220?matt_tool=71970283"
     },
     {
       "id": "MLB17001015",
@@ -74,22 +65,31 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7740814378?matt_tool=71970283"
     },
     {
-      "id": "MLB53222689",
-      "titulo": "Kit 10 Potes Herméticos Vidro 640ml Starhouse Marmita Forno Micro-ondas Airfryer com 4 travas de super vedação",
-      "preco": 84.71,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_942823-MLA113526261849_062026-F.jpg",
+      "id": "MLB66453791",
+      "titulo": "Papel Higiênico Familiar Folha Dupla Kit 24 Rolos de 30 m",
+      "preco": 79.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_790904-MLA108570211465_032026-F.jpg",
       "frete_gratis": true,
       "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7870425274?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7679474954?matt_tool=71970283"
     },
     {
-      "id": "MLB23958420",
-      "titulo": "Detergente Ypê Neutro 5 Litros",
-      "preco": 59.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_941769-MLA99925691215_112025-F.jpg",
+      "id": "MLB17001072",
+      "titulo": "Lava Roupas Líquido Omo Lavanderia Profissional Lavagem 7 L",
+      "preco": 49.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_685429-MLA116551180045_082026-F.jpg",
       "frete_gratis": true,
       "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-6740882936?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4987408499?matt_tool=71970283"
+    },
+    {
+      "id": "MLB29473724",
+      "titulo": "Cortina 4,00x2,80 Metros Blackout Blecaute Preto Corta Luz Em Tecido Grosso Para Quarto E Sala Texfine",
+      "preco": 113.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_664695-MLA96099594865_102025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Casa & Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-5119619296?matt_tool=71970283"
     }
   ]
 }
