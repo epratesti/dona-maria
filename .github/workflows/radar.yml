@@ -2,7 +2,6 @@ name: Dona Maria Radar
 
 on:
   schedule:
-    # Dois horários por hora → mais chance do GitHub disparar (cron é irregular)
     - cron: "25 * * * *"
     - cron: "55 * * * *"
   workflow_dispatch:
@@ -35,7 +34,8 @@ jobs:
           ML_CLIENT_ID: ${{ secrets.ML_CLIENT_ID }}
           ML_CLIENT_SECRET: ${{ secrets.ML_CLIENT_SECRET }}
           ML_AFFILIATE_ID: "71970283"
-          MAX_POSTS: "4"
+          POSTS_POR_GRUPO: "4"
+          MAX_POSTS: "16"
 
       - name: Salvar dados atualizados
         run: |
