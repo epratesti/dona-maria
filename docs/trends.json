@@ -1,23 +1,14 @@
 {
-  "atualizado": "2026-10-23T12:20:13.620520-03:00",
+  "atualizado": "2026-10-23T14:14:30.905787-03:00",
   "itens": [
     {
-      "id": "MLB22827783",
-      "titulo": "Papel Higiênico Vip Folha Dupla 30m Leve 18 pague 16 Personal",
-      "preco": 21.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_998012-MLU73186603451_122023-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Beleza",
-      "link": "https://produto.mercadolivre.com.br/MLB-3571216718?matt_tool=71970283"
-    },
-    {
-      "id": "MLB70378764",
-      "titulo": "Relogio De Parede Analogico 30cm Preto Branco Redondo Quartz Preto Branco",
-      "preco": 31.17,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_876061-MLA119342447875_102026-F.jpg",
-      "frete_gratis": false,
+      "id": "MLB19721946",
+      "titulo": "Relógio Casio Unissex Vintage Prata Aq-230a-1dmq",
+      "preco": 107.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_633473-MLA115741902361_082026-F.jpg",
+      "frete_gratis": true,
       "categoria": "Joias e Relógios",
-      "link": "https://produto.mercadolivre.com.br/MLB-4717286085?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5271088649?matt_tool=71970283"
     }
   ]
 }
