@@ -1,23 +1,23 @@
 {
-  "atualizado": "2026-10-22T19:29:46.966646-03:00",
+  "atualizado": "2026-10-22T21:18:50.082870-03:00",
   "itens": [
     {
-      "id": "MLB19755099",
-      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
-      "preco": 83.57,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
+      "id": "MLB44866959",
+      "titulo": "Protetor Solar Antimanchas Com Cor 2 Em Bastão 90fps Sallve",
+      "preco": 57.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_690853-MLA99434991990_112025-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza",
-      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7760359420?matt_tool=71970283"
     },
     {
-      "id": "MLB35276826",
-      "titulo": "Sanduicheira Grill 2 Em 1 Kian Preta Elétrica 750w Cor Preto,Seu Mixto Quente Ultra Rápido, e Outros Petiscos",
-      "preco": 55.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_811189-MLA117367368715_092026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Eletrodomésticos",
-      "link": "https://produto.mercadolivre.com.br/MLB-5317988333?matt_tool=71970283"
+      "id": "MLB28894895",
+      "titulo": "Relógio Digital Despertador Mesa Cabeceira Quarto Idoso Cor Preto Micgeek",
+      "preco": 24.94,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_767519-MLA108974232726_032026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Joias e Relógios",
+      "link": "https://produto.mercadolivre.com.br/MLB-6738365586?matt_tool=71970283"
     }
   ]
 }
