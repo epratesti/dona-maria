@@ -1,6 +1,6 @@
 """Dona Maria: ofertas femininas → Telegram.
-4 produtos por grupo (4 grupos = até 16/hora).
-Foco exclusivo: moda, calçados, beleza e casa para mulher.
+Produtos por grupo (moda, calçados, beleza, íntimos, casa).
+Foco exclusivo: moda, lingerie, calçados, beleza e casa para mulher.
 Sem bloqueio entre runs (só evita duplicata na mesma execução).
 Horário SP: 07h–22h | madrugada 23h, 02h, 05h
 """
@@ -14,7 +14,7 @@ AFF_PARAMS = os.getenv("ML_AFFILIATE_PARAMS", "matt_tool={id}")
 TG_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TG_CHAT = os.getenv("TELEGRAM_CHAT_ID")
 POSTS_POR_GRUPO = int(os.getenv("POSTS_POR_GRUPO", "4"))
-MAX_POSTS = int(os.getenv("MAX_POSTS", str(POSTS_POR_GRUPO * 4)))
+MAX_POSTS = int(os.getenv("MAX_POSTS", "20"))
 # 0 = sem bloqueio entre execuções
 REPETIR_APOS_DIAS = int(os.getenv("REPETIR_APOS_DIAS", "0"))
 API = "https://api.mercadolibre.com"
@@ -32,6 +32,18 @@ GRUPOS = [
             "conjunto feminino", "jaqueta feminina", "legging feminina",
             "cropped feminino", "macaquinho feminino", "cardigan feminino",
             "shorts feminino", "body feminino", "camiseta feminina",
+        ],
+    },
+    {
+        "nome": "Íntimos & Lingerie",
+        "cats": ["MLB1430"],
+        "queries": [
+            "lingerie feminina", "conjunto lingerie", "sutiã", "calcinha feminina",
+            "soutien", "calça legging íntima", "camisola feminina",
+            "robe feminino", "baby doll", "body lingerie",
+            "meia-calça feminina", "cueca boxer feminina",
+            "kit calcinha", "kit sutiã", "pijama feminino",
+            "short doll", "sutiã push up", "calcinha fio dental",
         ],
     },
     {
@@ -77,16 +89,17 @@ CAT_NOMES = {
 BLOQUEIO = re.compile(
     r"\b("
     r"masculin[oa]|homem|homens|menino|meninos|boy|man\b|men'?s|"
-    r"camisa social masculina|cueca|barbeador|barba|"
+    r"camisa social masculina|cueca masculina|barbeador|barba|"
     r"camiseta masculina|bermuda masculina|tênis masculino|"
     r"perfume masculino|relógio masculino|carteira masculina|"
     r"cinto masculino|jaqueta masculina|calça masculina|"
-    r"sapato social masculino|chinelo masculino"
+    r"sapato social masculino|chinelo masculino|"
+    r"sutiã masculino|lingerie masculina"
     r")\b",
     re.I,
 )
 
-# Exige sinal de produto voltado à mulher / casa / beleza
+# Exige sinal de produto voltado à mulher / íntimos / casa / beleza
 SINAL_FEM = re.compile(
     r"\b("
     r"feminin[oa]|mulher|mulheres|dama|ladies|woman|women|"
@@ -95,13 +108,16 @@ SINAL_FEM = re.compile(
     r"anel|esmalte|skincare|hidratante|shampoo|condicionador|"
     r"chapinha|secador|rasteirinha|sapatilha|clutch|nécessaire|"
     r"necessaire|air fryer|liquidificador|lençol|lencol|toalha|"
-    r"cortina|organizador|cropped|legging|cardigan|macaquinho"
+    r"cortina|organizador|cropped|legging|cardigan|macaquinho|"
+    r"lingerie|soutien|camisola|robe|pijama|baby.?doll|"
+    r"fio dental|push.?up|meia.?calça|meia calca|short.?doll|"
+    r"body lingerie|conjunto lingerie|íntim[oa]|intima|intimo"
     r")\b",
     re.I,
 )
 
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.4", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/1.5", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -130,7 +146,7 @@ def normalizar_titulo(t: str) -> str:
 
 
 def titulo_ok_feminino(titulo: str, exigir_sinal: bool = True) -> bool:
-    """Só aceita produtos femininos / casa-beleza; rejeita masculino."""
+    """Só aceita produtos femininos / íntimos / casa-beleza; rejeita masculino."""
     if not titulo:
         return False
     if BLOQUEIO.search(titulo):
@@ -402,7 +418,7 @@ def main():
     print("Iniciando Dona Maria", agora.isoformat())
     print(f"Meta: {POSTS_POR_GRUPO} por grupo, máx {MAX_POSTS} total")
     print(f"Bloqueio entre runs: {'DESLIGADO' if REPETIR_APOS_DIAS <= 0 else f'{REPETIR_APOS_DIAS} dias'}")
-    print("Filtro: apenas produtos femininos")
+    print("Filtro: apenas produtos femininos (inclui íntimos/lingerie)")
     h = headers_ml()
     if not h:
         return
