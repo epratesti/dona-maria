@@ -1,95 +1,105 @@
 {
-  "atualizado": "2026-10-23T19:23:22.591519-03:00",
+  "atualizado": "2026-10-23T19:44:19.939127-03:00",
   "itens": [
     {
       "id": "MLB45474714",
       "titulo": "Chinelo Feminino Slim Havaianas",
-      "preco": 59.99,
+      "preco": 42.9,
+      "preco_original": 54.0,
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_671885-MLA81672743644_012025-F.jpg",
-      "frete_gratis": true,
+      "frete_gratis": false,
       "categoria": "Moda Feminina",
-      "link": "https://produto.mercadolivre.com.br/MLB-7035512418?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7736304418?matt_tool=71970283"
     },
     {
       "id": "MLB44923446",
       "titulo": "Chinelo Top Havaianas Liso Branco",
-      "preco": 33.0,
+      "preco": 33.5,
+      "preco_original": 44.99,
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
-      "frete_gratis": true,
+      "frete_gratis": false,
       "categoria": "Moda Feminina",
-      "link": "https://produto.mercadolivre.com.br/MLB-4525141371?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
     },
     {
-      "id": "MLB37257779",
-      "titulo": "Shampoo Anticaspa Cabelos Normais a Oleosos, Dercos DS Vichy, 300g",
-      "preco": 184.67,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_646464-MLA112810161826_072026-F.jpg",
+      "id": "MLB19755099",
+      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
+      "preco": 83.56,
+      "preco_original": 120.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5759894972?matt_tool=71970283"
-    },
-    {
-      "id": "MLB19150371",
-      "titulo": "NIVEA Hidratante Desodorante Beleza Radiante Cuidado Intenso 400ml, Hidratação Profunda 48h, Brilho Natural, Corporal, Pele Seca e Extrasseca",
-      "preco": 19.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_959443-MLA93494140268_102025-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-7707188478?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
     },
     {
       "id": "MLB60416809",
       "titulo": "Hidrabene Protetor facial Solar FPS 70 Toque Seco Antissinais Clareia a pele 50g",
-      "preco": 42.89,
+      "preco": 49.99,
+      "preco_original": 54.0,
       "imagem": "https://http2.mlstatic.com/D_NQ_NP_655805-MLA116956226142_092026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-7750913248?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7717419048?matt_tool=71970283"
     },
     {
-      "id": "MLB51183406",
-      "titulo": "Percarbonato De Sódio 100% Puro Tira Manchas Alvejante - 1kg Calisul Original",
-      "preco": 21.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_910926-MLA104135384526_012026-F.jpg",
+      "id": "MLB21361292",
+      "titulo": "Loção Hidratante Corporal 3 Ceramidas Hidratação 120h CeraVe 473ml",
+      "preco": 100.16,
+      "preco_original": 143.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_930930-MLA118355221530_102026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-6567479220?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-3269837602?matt_tool=71970283"
     },
     {
-      "id": "MLB17001015",
-      "titulo": "Sabão Líquido Omo Lavagem Perfeita 3l",
-      "preco": 45.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_652994-MLA84838922409_052025-F.jpg",
+      "id": "MLB22871761",
+      "titulo": "Escova Rotativa Mondial Ceramica Tourmaline Ion 3x1 Erb-01 Rosa 127/220v",
+      "preco": 133.41,
+      "preco_original": 299.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_842831-MLA99963285219_112025-F.jpg",
       "frete_gratis": true,
-      "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7740814378?matt_tool=71970283"
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-5210029249?matt_tool=71970283"
     },
     {
-      "id": "MLB66453791",
-      "titulo": "Papel Higiênico Familiar Folha Dupla Kit 24 Rolos de 30 m",
-      "preco": 79.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_790904-MLA108570211465_032026-F.jpg",
+      "id": "MLB42520227",
+      "titulo": "Smartwatch Xiaomi Redmi Watch 5 Lite 1.96 Preto",
+      "preco": 338.53,
+      "preco_original": 349.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_779006-MLA119924571115_102026-F.jpg",
       "frete_gratis": true,
-      "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7679474954?matt_tool=71970283"
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
     },
     {
-      "id": "MLB17001072",
-      "titulo": "Lava Roupas Líquido Omo Lavanderia Profissional Lavagem 7 L",
-      "preco": 49.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_685429-MLA116551180045_082026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-4987408499?matt_tool=71970283"
+      "id": "MLB70378764",
+      "titulo": "Relogio De Parede Analogico 30cm Preto Branco Redondo Quartz Preto Branco",
+      "preco": 31.17,
+      "preco_original": 34.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_876061-MLA119342447875_102026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-4717286085?matt_tool=71970283"
     },
     {
-      "id": "MLB29473724",
-      "titulo": "Cortina 4,00x2,80 Metros Blackout Blecaute Preto Corta Luz Em Tecido Grosso Para Quarto E Sala Texfine",
-      "preco": 113.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_664695-MLA96099594865_102025-F.jpg",
+      "id": "MLB27398239",
+      "titulo": "Jogo Chave de Fenda e Philips Profissional Imantado 12 Peças",
+      "preco": 62.9,
+      "preco_original": 99.4,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_625409-MLA112629191862_062026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-6764389912?matt_tool=71970283"
+    },
+    {
+      "id": "MLB17822924",
+      "titulo": "Relógio de pulso Casio GA-2100 com corria de resina cor vermelho - fondo bordô",
+      "preco": 428.63,
+      "preco_original": 459.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_884312-MLA99489775726_112025-F.jpg",
       "frete_gratis": true,
-      "categoria": "Casa & Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-5119619296?matt_tool=71970283"
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-7044000776?matt_tool=71970283"
     }
   ]
 }
