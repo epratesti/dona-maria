@@ -1,6 +1,6 @@
 """Dona Maria: ofertas femininas → Telegram.
 Produtos por grupo (moda, calçados, beleza, íntimos, casa).
-Foco exclusivo: moda, lingerie, calçados, beleza e casa para mulher.
+Filtro leve: bloqueia só títulos masculinos (queries já são femininas).
 Sem bloqueio entre runs (só evita duplicata na mesma execução).
 Horário SP: 07h–22h | madrugada 23h, 02h, 05h
 """
@@ -15,7 +15,6 @@ TG_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TG_CHAT = os.getenv("TELEGRAM_CHAT_ID")
 POSTS_POR_GRUPO = int(os.getenv("POSTS_POR_GRUPO", "4"))
 MAX_POSTS = int(os.getenv("MAX_POSTS", "20"))
-# 0 = sem bloqueio entre execuções
 REPETIR_APOS_DIAS = int(os.getenv("REPETIR_APOS_DIAS", "0"))
 API = "https://api.mercadolibre.com"
 ROOT = Path(__file__).parent
@@ -39,11 +38,9 @@ GRUPOS = [
         "cats": ["MLB1430"],
         "queries": [
             "lingerie feminina", "conjunto lingerie", "sutiã", "calcinha feminina",
-            "soutien", "calça legging íntima", "camisola feminina",
-            "robe feminino", "baby doll", "body lingerie",
-            "meia-calça feminina", "cueca boxer feminina",
-            "kit calcinha", "kit sutiã", "pijama feminino",
-            "short doll", "sutiã push up", "calcinha fio dental",
+            "soutien", "camisola feminina", "robe feminino", "baby doll",
+            "body lingerie", "meia-calça feminina", "kit calcinha", "kit sutiã",
+            "pijama feminino", "short doll", "sutiã push up", "calcinha fio dental",
         ],
     },
     {
@@ -60,11 +57,10 @@ GRUPOS = [
         "nome": "Beleza & Cuidados",
         "cats": ["MLB1246"],
         "queries": [
-            "maquiagem feminina", "skincare feminino", "perfume feminino", "batom",
-            "creme facial mulher", "kit maquiagem", "esmalte unhas",
-            "base maquiagem", "máscara cílios", "hidratante corporal feminino",
-            "shampoo feminino", "condicionador cabelo",
-            "secador cabelo", "chapinha cabelo", "escova modeladora",
+            "maquiagem", "skincare", "perfume feminino", "batom",
+            "kit maquiagem", "esmalte", "base maquiagem", "máscara de cílios",
+            "hidratante corporal", "shampoo", "condicionador",
+            "secador de cabelo", "chapinha", "escova modeladora",
         ],
     },
     {
@@ -72,52 +68,29 @@ GRUPOS = [
         "cats": ["MLB1574", "MLB3937"],
         "queries": [
             "colar feminino", "brinco feminino", "pulseira feminina",
-            "anel feminino", "kit joias femininas", "relógio feminino",
-            "organizador maquiagem", "nécessaire feminina",
-            "jogo de lençol", "toalha banho", "cortina sala",
+            "anel feminino", "relógio feminino", "organizador maquiagem",
+            "nécessaire", "jogo de lençol", "toalha de banho", "cortina",
             "air fryer", "liquidificador",
         ],
     },
 ]
 
-CAT_NOMES = {
-    "MLB1430": "Moda", "MLB1246": "Beleza", "MLB1574": "Casa",
-    "MLB5726": "Eletrodomésticos", "MLB3937": "Joias e Relógios",
-}
-
-# Bloqueia explicitamente itens masculinos / infantis menino
+# Só bloqueia o que for claramente masculino
 BLOQUEIO = re.compile(
     r"\b("
-    r"masculin[oa]|homem|homens|menino|meninos|boy|man\b|men'?s|"
-    r"camisa social masculina|cueca masculina|barbeador|barba|"
+    r"masculin[oa]|para homem|para homens|menino|meninos|"
+    r"cueca masculina|barbeador|barba|"
     r"camiseta masculina|bermuda masculina|tênis masculino|"
     r"perfume masculino|relógio masculino|carteira masculina|"
     r"cinto masculino|jaqueta masculina|calça masculina|"
     r"sapato social masculino|chinelo masculino|"
-    r"sutiã masculino|lingerie masculina"
-    r")\b",
-    re.I,
-)
-
-# Exige sinal de produto voltado à mulher / íntimos / casa / beleza
-SINAL_FEM = re.compile(
-    r"\b("
-    r"feminin[oa]|mulher|mulheres|dama|ladies|woman|women|"
-    r"vestido|blusa|saia|sutiã|sutia|calcinha|batom|maquiagem|"
-    r"sandália|sandalia|scarpin|bolsa|colar|brinco|pulseira|"
-    r"anel|esmalte|skincare|hidratante|shampoo|condicionador|"
-    r"chapinha|secador|rasteirinha|sapatilha|clutch|nécessaire|"
-    r"necessaire|air fryer|liquidificador|lençol|lencol|toalha|"
-    r"cortina|organizador|cropped|legging|cardigan|macaquinho|"
-    r"lingerie|soutien|camisola|robe|pijama|baby.?doll|"
-    r"fio dental|push.?up|meia.?calça|meia calca|short.?doll|"
-    r"body lingerie|conjunto lingerie|íntim[oa]|intima|intimo"
+    r"camisa social masculina"
     r")\b",
     re.I,
 )
 
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.5", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/1.6", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -145,13 +118,11 @@ def normalizar_titulo(t: str) -> str:
     return t[:80]
 
 
-def titulo_ok_feminino(titulo: str, exigir_sinal: bool = True) -> bool:
-    """Só aceita produtos femininos / íntimos / casa-beleza; rejeita masculino."""
+def titulo_ok(titulo: str) -> bool:
+    """Rejeita só títulos claramente masculinos."""
     if not titulo:
         return False
     if BLOQUEIO.search(titulo):
-        return False
-    if exigir_sinal and not SINAL_FEM.search(titulo):
         return False
     return True
 
@@ -211,73 +182,9 @@ def registrar_postado(estado, pid, titulo, agora):
         estado["titulos"][nt] = agora.isoformat()
 
 
-def escolher_oferta(results):
-    if not results:
-        return None
-    validos = []
-    for it in results:
-        try:
-            preco = float(it.get("price") or 0)
-        except (TypeError, ValueError):
-            continue
-        if preco <= 0:
-            continue
-        frete = (it.get("shipping") or {}).get("free_shipping", False)
-        validos.append({"item": it, "preco": preco, "frete": frete})
-    if not validos:
-        return None
-    precos = sorted(v["preco"] for v in validos)
-    mediana = precos[len(precos) // 2]
-    piso = mediana * 0.30 if mediana > 0 else 0
-    validos = [v for v in validos if v["preco"] >= piso] or validos
-    com_frete = [v for v in validos if v["frete"]]
-    pool = com_frete if com_frete else validos
-    return min(pool, key=lambda x: x["preco"])
-
-
-def montar_produto(pid, h, categoria, exigir_sinal=True):
-    titulo, foto = "", ""
-    preco, frete = 0.0, False
-    item_id = None
-    try:
-        rp = S.get(f"{API}/products/{pid}", headers=h, timeout=15)
-        if rp.status_code == 200:
-            d = rp.json()
-            titulo = d.get("name") or d.get("title") or ""
-            pics = d.get("pictures") or []
-            if pics:
-                foto = (pics[0].get("url") or pics[0].get("secure_url") or "").replace("http://", "https://")
-    except Exception as e:
-        print(f"  products/{pid}:", e)
-    if not titulo_ok_feminino(titulo, exigir_sinal=exigir_sinal):
-        return None
-    try:
-        ri = S.get(f"{API}/products/{pid}/items", headers=h, timeout=15)
-        if ri.status_code == 200:
-            escolha = escolher_oferta(ri.json().get("results") or [])
-            if escolha:
-                preco = escolha["preco"]
-                frete = escolha["frete"]
-                item_id = escolha["item"].get("id") or escolha["item"].get("item_id")
-    except Exception as e:
-        print(f"  items/{pid}:", e)
-    if not titulo or preco <= 0:
-        return None
-    if item_id:
-        mid = str(item_id)
-        mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
-        link = link_afiliado(f"https://produto.mercadolivre.com.br/{mid_fmt}")
-    else:
-        link = link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}")
-    return {
-        "id": pid, "titulo": titulo, "preco": preco, "imagem": foto,
-        "frete_gratis": frete, "categoria": categoria, "link": link, "item_id": item_id,
-    }
-
-
 def produto_search(item, label):
     titulo = item.get("title") or ""
-    if not titulo_ok_feminino(titulo, exigir_sinal=True):
+    if not titulo_ok(titulo):
         return None
     try:
         preco = float(item.get("price") or 0)
@@ -290,29 +197,35 @@ def produto_search(item, label):
     mid = str(item.get("id", ""))
     pid = item.get("catalog_product_id") or mid
     mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
+    permalink = item.get("permalink") or f"https://produto.mercadolivre.com.br/{mid_fmt}"
     return {
         "id": str(pid), "titulo": titulo, "preco": preco, "imagem": foto,
         "frete_gratis": frete, "categoria": label,
-        "link": link_afiliado(f"https://produto.mercadolivre.com.br/{mid_fmt}"),
+        "link": link_afiliado(permalink),
         "item_id": mid,
     }
 
 
-def buscar_varios_query(query, h, vistos_ids, vistos_titulos, label, quantos):
+def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, quantos):
     achados = []
     try:
         offset = random.choice([0, 0, 10, 20, 30, 40])
-        r = S.get(
-            f"{API}/sites/MLB/search", headers=h,
-            params={
-                "q": query, "limit": 50, "offset": offset,
-                "sort": random.choice(["relevance", "price_asc", "sold_quantity_desc"]),
-            },
-            timeout=25,
-        )
+        params = {
+            "q": query,
+            "limit": 50,
+            "offset": offset,
+            "sort": random.choice(["relevance", "price_asc", "sold_quantity_desc"]),
+        }
+        if cat_id:
+            params["category"] = cat_id
+        r = S.get(f"{API}/sites/MLB/search", headers=h, params=params, timeout=25)
         if r.status_code != 200:
+            print(f"  Search '{query}' status={r.status_code}")
             return achados
         results = list(r.json().get("results") or [])
+        if not results:
+            print(f"  Search '{query}': 0 resultados")
+            return achados
         random.shuffle(results)
         for item in results:
             if len(achados) >= quantos:
@@ -323,11 +236,7 @@ def buscar_varios_query(query, h, vistos_ids, vistos_titulos, label, quantos):
             nt = normalizar_titulo(item.get("title") or "")
             if nt and nt in vistos_titulos:
                 continue
-            p = None
-            if item.get("catalog_product_id"):
-                p = montar_produto(item["catalog_product_id"], h, label, exigir_sinal=True)
-            if not p:
-                p = produto_search(item, label)
+            p = produto_search(item, label)
             if not p:
                 continue
             vistos_ids.add(p["id"])
@@ -348,7 +257,8 @@ def varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, quantos):
         if len(achados) >= quantos:
             break
         falta = quantos - len(achados)
-        novos = buscar_varios_query(q, h, vistos_ids, vistos_titulos, grupo["nome"], falta)
+        cat = random.choice(grupo["cats"]) if grupo.get("cats") else None
+        novos = buscar_varios_query(q, cat, h, vistos_ids, vistos_titulos, grupo["nome"], falta)
         achados.extend(novos)
     return achados
 
@@ -418,7 +328,7 @@ def main():
     print("Iniciando Dona Maria", agora.isoformat())
     print(f"Meta: {POSTS_POR_GRUPO} por grupo, máx {MAX_POSTS} total")
     print(f"Bloqueio entre runs: {'DESLIGADO' if REPETIR_APOS_DIAS <= 0 else f'{REPETIR_APOS_DIAS} dias'}")
-    print("Filtro: apenas produtos femininos (inclui íntimos/lingerie)")
+    print("Filtro: bloqueia só títulos masculinos (afrouxado)")
     h = headers_ml()
     if not h:
         return
