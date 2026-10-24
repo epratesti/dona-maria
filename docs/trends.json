@@ -1,16 +1,6 @@
 {
-  "atualizado": "2026-10-23T21:52:58.764700-03:00",
+  "atualizado": "2026-10-23T23:53:23.611682-03:00",
   "itens": [
-    {
-      "id": "MLB44923446",
-      "titulo": "Chinelo Top Havaianas Liso Branco",
-      "preco": 33.5,
-      "preco_original": 44.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Moda Feminina",
-      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
-    },
     {
       "id": "MLB45474714",
       "titulo": "Chinelo Feminino Slim Havaianas",
@@ -22,34 +12,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7736304418?matt_tool=71970283"
     },
     {
-      "id": "MLB22871761",
-      "titulo": "Escova Rotativa Mondial Ceramica Tourmaline Ion 3x1 Erb-01 Rosa 127/220v",
-      "preco": 133.41,
-      "preco_original": 299.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_842831-MLA99963285219_112025-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5210029249?matt_tool=71970283"
-    },
-    {
-      "id": "MLB24326256",
-      "titulo": "Creme Multirreparador Pele Sensível Cicaplast Baume B5+ La Roche-Posay 40ml",
-      "preco": 71.52,
-      "preco_original": 109.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_695558-MLA119937437423_102026-F.jpg",
+      "id": "MLB44923446",
+      "titulo": "Chinelo Top Havaianas Liso Branco",
+      "preco": 33.5,
+      "preco_original": 44.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
       "frete_gratis": false,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3949790433?matt_tool=71970283"
-    },
-    {
-      "id": "MLB19755099",
-      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
-      "preco": 83.56,
-      "preco_original": 120.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
+      "categoria": "Moda Feminina",
+      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
     },
     {
       "id": "MLB19767143",
@@ -62,14 +32,44 @@
       "link": "https://produto.mercadolivre.com.br/MLB-3340533709?matt_tool=71970283"
     },
     {
-      "id": "MLB28894895",
-      "titulo": "Relógio Digital Despertador Mesa Cabeceira Quarto Idoso Cor Preto Micgeek",
-      "preco": 24.94,
-      "preco_original": 40.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_767519-MLA108974232726_032026-F.jpg",
+      "id": "MLB78872569",
+      "titulo": "Maquina Maquininha Dragao Acabamento Cortar Cabelo Aparador Barba Pelos Elétrica Sem Fio Recarregavel - Crowley",
+      "preco": 22.9,
+      "preco_original": 34.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_952927-MLA115681613734_092026-F.jpg",
       "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7582052312?matt_tool=71970283"
+    },
+    {
+      "id": "MLB19150371",
+      "titulo": "NIVEA Hidratante Desodorante Beleza Radiante Cuidado Intenso 400ml, Hidratação Profunda 48h, Brilho Natural, Corporal, Pele Seca e Extrasseca",
+      "preco": 24.9,
+      "preco_original": 27.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_959443-MLA93494140268_102025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7875278108?matt_tool=71970283"
+    },
+    {
+      "id": "MLB18717798",
+      "titulo": "Fralda Bigfral Derma Plus M 8 Unidades Tamanho Médio",
+      "preco": 27.99,
+      "preco_original": 37.21,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_952728-MLA99929505489_112025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-3338989740?matt_tool=71970283"
+    },
+    {
+      "id": "MLB42520227",
+      "titulo": "Smartwatch Xiaomi Redmi Watch 5 Lite 1.96 Preto",
+      "preco": 338.53,
+      "preco_original": 349.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_779006-MLA119924571115_102026-F.jpg",
+      "frete_gratis": true,
       "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-6738365586?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
     },
     {
       "id": "MLB70228023",
@@ -92,14 +92,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-5332948385?matt_tool=71970283"
     },
     {
-      "id": "MLB42520227",
-      "titulo": "Smartwatch Xiaomi Redmi Watch 5 Lite 1.96 Preto",
-      "preco": 338.53,
-      "preco_original": 349.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_779006-MLA119924571115_102026-F.jpg",
-      "frete_gratis": true,
+      "id": "MLB27398239",
+      "titulo": "Jogo Chave de Fenda e Philips Profissional Imantado 12 Peças",
+      "preco": 62.9,
+      "preco_original": 99.4,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_625409-MLA112629191862_062026-F.jpg",
+      "frete_gratis": false,
       "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-6764389912?matt_tool=71970283"
     }
   ]
 }
