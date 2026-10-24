@@ -1,9 +1,8 @@
 """Dona Maria: ofertas femininas → Telegram.
 Filtro: bloqueia masculino + limpeza + itens genéricos de casa.
 Mostra preço original e com desconto quando o ML informar (de R$ X por R$ Y).
-Busca: se /search der 403, tenta sem token; fallback highlights.
-Sem bloqueio entre runs.
-Horário SP: 07h–22h | madrugada 23h, 02h, 05h
+Anti-repetição: ID, item_id e fingerprint de título (14 dias).
+Horário SP: 07h–22h
 """
 import os, json, html, re, random, datetime as dt
 from pathlib import Path
@@ -14,14 +13,22 @@ AFF_ID = os.getenv("ML_AFFILIATE_ID", "71970283")
 AFF_PARAMS = os.getenv("ML_AFFILIATE_PARAMS", "matt_tool={id}")
 TG_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TG_CHAT = os.getenv("TELEGRAM_CHAT_ID")
-POSTS_POR_GRUPO = int(os.getenv("POSTS_POR_GRUPO", "4"))
-MAX_POSTS = int(os.getenv("MAX_POSTS", "20"))
-REPETIR_APOS_DIAS = int(os.getenv("REPETIR_APOS_DIAS", "0"))
+POSTS_POR_GRUPO = int(os.getenv("POSTS_POR_GRUPO", "1"))
+MAX_POSTS = int(os.getenv("MAX_POSTS", "4"))
+REPETIR_APOS_DIAS = int(os.getenv("REPETIR_APOS_DIAS", "14"))
 API = "https://api.mercadolibre.com"
 ROOT = Path(__file__).parent
 TRENDS = ROOT / "docs" / "trends.json"
 STATE = ROOT / "state" / "posted.json"
 TZ = ZoneInfo("America/Sao_Paulo")
+
+STOPWORDS = {
+    "de", "da", "do", "das", "dos", "e", "em", "com", "para", "por", "um", "uma",
+    "o", "a", "os", "as", "no", "na", "nos", "nas", "ao", "à", "ou", "x", "un",
+    "unidades", "unidade", "kit", "original", "novo", "nova", "preto", "branco",
+    "azul", "vermelho", "cor", "tamanho", "ml", "kg", "g", "cm", "mm", "w",
+    "feminino", "feminina", "femininos", "femininas",
+}
 
 GRUPOS = [
     {
@@ -77,7 +84,6 @@ CAT_NOMES = {
     "MLB1430": "Moda", "MLB1246": "Beleza", "MLB1574": "Casa", "MLB3937": "Joias",
 }
 
-# Masculino + limpeza + casa genérica / eletro que não são o foco do canal
 BLOQUEIO = re.compile(
     r"\b("
     r"masculin[oa]|para homem|para homens|menino|meninos|"
@@ -86,19 +92,18 @@ BLOQUEIO = re.compile(
     r"perfume masculino|relógio masculino|carteira masculina|"
     r"cinto masculino|jaqueta masculina|calça masculina|"
     r"sapato social masculino|chinelo masculino|camisa social masculina|"
-    # limpeza e higiene doméstica
     r"detergente|sabão|sabao|amaciante|desinfetante|água sanitária|agua sanitaria|"
     r"papel higi[eê]nico|papel toalha|esponja|multiuso|limpador|"
     r"alvejante|cloro|yp[eê]|omo\b|vanish|ajax|"
-    # eletro / casa genérica que poluíram o canal
     r"ducha eletr[oô]nica|chuveiro el[eé]trico|torneira|"
-    r"vassoura|rodo|balde|pano de ch[aã]o"
+    r"vassoura|rodo|balde|pano de ch[aã]o|chave de fenda|furadeira|"
+    r"barbeador|máquina de cortar cabelo|aparador de barba|drag[aã]o"
     r")\b",
     re.I,
 )
 
 S = requests.Session()
-S.headers.update({"User-Agent": "dona-maria/1.8", "Accept": "application/json"})
+S.headers.update({"User-Agent": "dona-maria/2.0", "Accept": "application/json"})
 
 
 def headers_ml():
@@ -123,7 +128,18 @@ def normalizar_titulo(t: str) -> str:
     t = (t or "").lower()
     t = re.sub(r"[^a-z0-9áéíóúâêôãõç\s]", " ", t)
     t = re.sub(r"\s+", " ", t).strip()
-    return t[:80]
+    return t[:100]
+
+
+def fingerprint(t: str) -> str:
+    nt = normalizar_titulo(t)
+    palavras = []
+    for w in nt.split():
+        if len(w) < 3 or w in STOPWORDS or w.isdigit():
+            continue
+        palavras.append(w)
+    chave = " ".join(sorted(palavras[:8]))
+    return chave[:90] if chave else nt[:60]
 
 
 def titulo_ok(titulo: str) -> bool:
@@ -133,7 +149,6 @@ def titulo_ok(titulo: str) -> bool:
 
 
 def extrair_precos(obj) -> tuple:
-    """Retorna (preco_atual, preco_original_ou_None)."""
     try:
         preco = float(obj.get("price") or 0)
     except (TypeError, ValueError):
@@ -170,6 +185,29 @@ def carregar_estado():
         return {"ids": {}, "titulos": {}}
 
 
+def incorporar_trends(estado, agora):
+    if REPETIR_APOS_DIAS <= 0:
+        return estado
+    try:
+        if not TRENDS.exists():
+            return estado
+        data = json.loads(TRENDS.read_text(encoding="utf-8") or "{}")
+        itens = data.get("itens") or []
+        ts = data.get("atualizado") or agora.isoformat()
+        for it in itens:
+            pid = str(it.get("id") or "")
+            titulo = it.get("titulo") or ""
+            if pid:
+                estado["ids"][pid] = ts
+            for key in (normalizar_titulo(titulo), fingerprint(titulo)):
+                if key:
+                    estado["titulos"][key] = ts
+        print(f"Trends incorporados: {len(itens)} itens")
+    except Exception as e:
+        print("Aviso ao ler trends:", e)
+    return estado
+
+
 def limpar_estado(estado, agora):
     if REPETIR_APOS_DIAS <= 0:
         return {"ids": {}, "titulos": {}}
@@ -190,22 +228,58 @@ def limpar_estado(estado, agora):
     return {"ids": ids_limpos, "titulos": titulos_limpos}
 
 
-def ja_postado(estado, pid, titulo):
+def ja_postado(estado, pid, titulo, item_id=None):
     if REPETIR_APOS_DIAS <= 0:
         return False
-    if pid in estado["ids"]:
+    ids = estado.get("ids", {})
+    if str(pid) in ids:
         return True
+    if item_id and str(item_id) in ids:
+        return True
+    for cand in (str(pid), str(item_id or "")):
+        if not cand:
+            continue
+        if cand.startswith("MLB") and "-" not in cand:
+            alt = cand[:3] + "-" + cand[3:]
+            if alt in ids:
+                return True
+        if "-" in cand:
+            alt = cand.replace("-", "")
+            if alt in ids:
+                return True
+    titulos = estado.get("titulos", {})
     nt = normalizar_titulo(titulo)
-    return bool(nt and nt in estado["titulos"])
+    fp = fingerprint(titulo)
+    if nt and nt in titulos:
+        return True
+    if fp and fp in titulos:
+        return True
+    if fp:
+        fp_tokens = set(fp.split())
+        if len(fp_tokens) >= 3:
+            for t in titulos:
+                other = set(t.split())
+                if len(fp_tokens & other) >= min(4, len(fp_tokens)):
+                    return True
+    return False
 
 
-def registrar_postado(estado, pid, titulo, agora):
+def registrar_postado(estado, pid, titulo, agora, item_id=None):
     if REPETIR_APOS_DIAS <= 0:
         return
-    estado["ids"][pid] = agora.isoformat()
+    ts = agora.isoformat()
+    estado.setdefault("ids", {})[str(pid)] = ts
+    if item_id:
+        mid = str(item_id)
+        estado["ids"][mid] = ts
+        if mid.startswith("MLB") and "-" not in mid:
+            estado["ids"][mid[:3] + "-" + mid[3:]] = ts
     nt = normalizar_titulo(titulo)
+    fp = fingerprint(titulo)
     if nt:
-        estado["titulos"][nt] = agora.isoformat()
+        estado.setdefault("titulos", {})[nt] = ts
+    if fp:
+        estado.setdefault("titulos", {})[fp] = ts
 
 
 def escolher_oferta(results):
@@ -222,7 +296,6 @@ def escolher_oferta(results):
         })
     if not validos:
         return None
-    # prioriza quem tem desconto real
     com_desc = [v for v in validos if v["original"] and v["original"] > v["preco"]]
     pool_base = com_desc if com_desc else validos
     precos = sorted(v["preco"] for v in pool_base)
@@ -259,7 +332,6 @@ def montar_produto(pid, h, categoria):
                 original = escolha.get("original")
                 frete = escolha["frete"]
                 item_id = escolha["item"].get("id") or escolha["item"].get("item_id")
-                # detalhe do item pode trazer original_price melhor
                 if item_id and not original:
                     try:
                         rd = S.get(f"{API}/items/{item_id}", headers=h or {}, timeout=12)
@@ -278,7 +350,7 @@ def montar_produto(pid, h, categoria):
     else:
         link = link_afiliado(f"https://www.mercadolivre.com.br/p/{pid}")
     return {
-        "id": pid, "titulo": titulo, "preco": preco, "preco_original": original,
+        "id": str(pid), "titulo": titulo, "preco": preco, "preco_original": original,
         "imagem": foto, "frete_gratis": frete, "categoria": categoria,
         "link": link, "item_id": item_id,
     }
@@ -297,7 +369,6 @@ def produto_search(item, label, h=None):
     pid = item.get("catalog_product_id") or mid
     mid_fmt = (mid[:3] + "-" + mid[3:]) if mid.startswith("MLB") and "-" not in mid else mid
     permalink = item.get("permalink") or f"https://produto.mercadolivre.com.br/{mid_fmt}"
-    # tenta original_price no detalhe do item se a busca não trouxe
     if mid and not original:
         try:
             rd = S.get(f"{API}/items/{mid}", headers=h or {}, timeout=12)
@@ -320,15 +391,45 @@ def produto_search(item, label, h=None):
 def ml_get(url, h, params=None):
     r = S.get(url, headers=h or {}, params=params, timeout=25)
     if r.status_code == 403 and h:
-        r = S.get(url, headers={"User-Agent": "dona-maria/1.8", "Accept": "application/json"},
+        r = S.get(url, headers={"User-Agent": "dona-maria/2.0", "Accept": "application/json"},
                   params=params, timeout=25)
     return r
 
 
-def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, quantos):
+def _marcar_visto(vistos_ids, vistos_fps, p):
+    vistos_ids.add(str(p["id"]))
+    if p.get("item_id"):
+        vistos_ids.add(str(p["item_id"]))
+    fp = fingerprint(p["titulo"])
+    nt = normalizar_titulo(p["titulo"])
+    if fp:
+        vistos_fps.add(fp)
+    if nt:
+        vistos_fps.add(nt)
+
+
+def _ja_visto(vistos_ids, vistos_fps, pid, mid, titulo):
+    if pid in vistos_ids or (mid and mid in vistos_ids):
+        return True
+    fp = fingerprint(titulo)
+    nt = normalizar_titulo(titulo)
+    if fp and fp in vistos_fps:
+        return True
+    if nt and nt in vistos_fps:
+        return True
+    if fp:
+        tokens = set(fp.split())
+        if len(tokens) >= 3:
+            for t in vistos_fps:
+                if len(tokens & set(t.split())) >= min(4, len(tokens)):
+                    return True
+    return False
+
+
+def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_fps, label, quantos):
     achados = []
     try:
-        offset = random.choice([0, 0, 10, 20, 30])
+        offset = random.choice([20, 30, 40, 50, 60, 80, 100])
         params = {
             "q": query, "limit": 50, "offset": offset,
             "sort": random.choice(["relevance", "price_asc", "sold_quantity_desc"]),
@@ -342,36 +443,33 @@ def buscar_varios_query(query, cat_id, h, vistos_ids, vistos_titulos, label, qua
         results = list(r.json().get("results") or [])
         if not results:
             return achados
-        # prioriza itens com original_price (desconto)
         results.sort(
             key=lambda it: 0 if (it.get("original_price") and float(it.get("original_price") or 0) > float(it.get("price") or 0)) else 1
         )
+        random.shuffle(results[:25])
         for item in results:
             if len(achados) >= quantos:
                 break
-            pid = item.get("catalog_product_id") or item.get("id")
-            if not pid or str(pid) in vistos_ids:
-                continue
-            nt = normalizar_titulo(item.get("title") or "")
-            if nt and nt in vistos_titulos:
+            pid = str(item.get("catalog_product_id") or item.get("id") or "")
+            mid = str(item.get("id") or "")
+            titulo = item.get("title") or ""
+            if not pid or _ja_visto(vistos_ids, vistos_fps, pid, mid, titulo):
                 continue
             p = produto_search(item, label, h=h)
             if not p:
                 continue
-            vistos_ids.add(p["id"])
-            if nt:
-                vistos_titulos.add(nt)
+            if _ja_visto(vistos_ids, vistos_fps, p["id"], str(p.get("item_id") or ""), p["titulo"]):
+                continue
+            _marcar_visto(vistos_ids, vistos_fps, p)
             achados.append(p)
-            desc = ""
-            if p.get("preco_original"):
-                desc = f" (de {p['preco_original']:.2f})"
+            desc = f" (de {p['preco_original']:.2f})" if p.get("preco_original") else ""
             print(f"  OK [{label}] R$ {p['preco']:.2f}{desc} — {p['titulo'][:45]}")
     except Exception as e:
         print(f"Erro search '{query}':", e)
     return achados
 
 
-def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_titulos, quantos, label):
+def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_fps, quantos, label):
     nome = label or CAT_NOMES.get(cat_id, cat_id)
     achados = []
     try:
@@ -384,18 +482,15 @@ def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_titulos, quantos, lab
         for item in items:
             if len(achados) >= quantos:
                 break
-            pid = item.get("id")
-            if not pid or str(pid) in vistos_ids:
+            pid = str(item.get("id") or "")
+            if not pid or pid in vistos_ids:
                 continue
             p = montar_produto(pid, h, nome)
             if not p:
                 continue
-            nt = normalizar_titulo(p["titulo"])
-            if nt and nt in vistos_titulos:
+            if _ja_visto(vistos_ids, vistos_fps, p["id"], str(p.get("item_id") or ""), p["titulo"]):
                 continue
-            vistos_ids.add(p["id"])
-            if nt:
-                vistos_titulos.add(nt)
+            _marcar_visto(vistos_ids, vistos_fps, p)
             achados.append(p)
             print(f"  OK [{nome}/hl] R$ {p['preco']:.2f} — {p['titulo'][:45]}")
     except Exception as e:
@@ -403,16 +498,16 @@ def buscar_varios_highlights(cat_id, h, vistos_ids, vistos_titulos, quantos, lab
     return achados
 
 
-def varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, quantos):
+def varios_do_grupo(grupo, h, vistos_ids, vistos_fps, quantos):
     achados = []
     queries = list(grupo.get("queries", []))
     random.shuffle(queries)
-    for q in queries[:5]:
+    for q in queries[:6]:
         if len(achados) >= quantos:
             break
         falta = quantos - len(achados)
         cat = random.choice(grupo["cats"]) if grupo.get("cats") else None
-        novos = buscar_varios_query(q, cat, h, vistos_ids, vistos_titulos, grupo["nome"], falta)
+        novos = buscar_varios_query(q, cat, h, vistos_ids, vistos_fps, grupo["nome"], falta)
         achados.extend(novos)
     if len(achados) < quantos:
         for cat_id in grupo.get("cats", []):
@@ -420,25 +515,24 @@ def varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, quantos):
                 break
             falta = quantos - len(achados)
             novos = buscar_varios_highlights(
-                cat_id, h, vistos_ids, vistos_titulos, falta, grupo["nome"]
+                cat_id, h, vistos_ids, vistos_fps, falta, grupo["nome"]
             )
             achados.extend(novos)
     return achados
 
 
 def montar_diversificado(h, estado):
-    if REPETIR_APOS_DIAS <= 0:
-        vistos_ids, vistos_titulos = set(), set()
-    else:
-        vistos_ids = set(estado["ids"].keys())
-        vistos_titulos = set(estado["titulos"].keys())
+    vistos_ids = set(str(k) for k in estado.get("ids", {}).keys())
+    vistos_fps = set(estado.get("titulos", {}).keys())
     escolhidos = []
-    for grupo in GRUPOS:
+    grupos = list(GRUPOS)
+    random.shuffle(grupos)
+    for grupo in grupos:
         if len(escolhidos) >= MAX_POSTS:
             break
         n = min(POSTS_POR_GRUPO, MAX_POSTS - len(escolhidos))
-        print(f"Grupo {grupo['nome']}: buscando até {n}")
-        novos = varios_do_grupo(grupo, h, vistos_ids, vistos_titulos, n)
+        print(f"Grupo {grupo['nome']}: buscando até {n} (bloqueados: {len(vistos_ids)} ids)")
+        novos = varios_do_grupo(grupo, h, vistos_ids, vistos_fps, n)
         escolhidos.extend(novos)
     return escolhidos
 
@@ -452,9 +546,7 @@ def formatar_preco_linha(p):
     original = p.get("preco_original")
     if original and original > atual:
         pct = int(round((1 - atual / original) * 100))
-        linha = (
-            f"💰 De <s>{preco_br(original)}</s> por <b>{preco_br(atual)}</b>"
-        )
+        linha = f"💰 De <s>{preco_br(original)}</s> por <b>{preco_br(atual)}</b>"
         if pct >= 5:
             linha += f" · <b>-{pct}%</b>"
         return linha
@@ -491,54 +583,57 @@ def postar(p):
 
 
 def pode_postar_agora(agora: dt.datetime) -> bool:
-    h = agora.hour
-    return (7 <= h <= 22) or h in (23, 2, 5)
+    return 7 <= agora.hour <= 22
 
 
 def salvar_estado(estado):
+    STATE.parent.mkdir(parents=True, exist_ok=True)
     STATE.write_text(json.dumps(estado, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def main():
     agora = dt.datetime.now(TZ)
     print("Iniciando Dona Maria", agora.isoformat())
-    print(f"Meta: {POSTS_POR_GRUPO} por grupo, máx {MAX_POSTS} total")
-    print(f"Bloqueio entre runs: {'DESLIGADO' if REPETIR_APOS_DIAS <= 0 else f'{REPETIR_APOS_DIAS} dias'}")
-    print("Filtro: sem masculino, limpeza nem casa genérica; mostra de/por quando houver")
+    print(f"Meta: {POSTS_POR_GRUPO}/grupo, máx {MAX_POSTS} | bloqueio {REPETIR_APOS_DIAS} dias")
     h = headers_ml()
     if not h:
         return
     estado = limpar_estado(carregar_estado(), agora)
-    print(f"Bloqueados: {len(estado['ids'])}")
+    estado = incorporar_trends(estado, agora)
+    print(f"Bloqueados: {len(estado.get('ids', {}))} ids, {len(estado.get('titulos', {}))} fingerprints")
     ranking = montar_diversificado(h, estado)
-    print("Produtos selecionados:", len(ranking))
+    ranking = [p for p in ranking if not ja_postado(estado, p["id"], p["titulo"], p.get("item_id"))]
+    print("Selecionados após filtro:", len(ranking))
     TRENDS.parent.mkdir(parents=True, exist_ok=True)
     trends_itens = [{k: v for k, v in p.items() if k != "item_id"} for p in ranking]
     TRENDS.write_text(json.dumps({"atualizado": agora.isoformat(), "itens": trends_itens},
                                  ensure_ascii=False, indent=2), encoding="utf-8")
     if not ranking:
-        print("Nada a postar")
+        print("Nada novo para postar")
         salvar_estado(estado)
         return
     if not (TG_TOKEN and TG_CHAT):
         print("Falta Telegram")
+        salvar_estado(estado)
         return
     if not pode_postar_agora(agora):
-        print(f"Fora do horário ({agora.hour}h)")
+        print(f"Fora do horário ({agora.hour}h) — sem postar")
         salvar_estado(estado)
         return
     enviados = 0
     for p in ranking:
         if enviados >= MAX_POSTS:
             break
-        if ja_postado(estado, p["id"], p["titulo"]):
+        if ja_postado(estado, p["id"], p["titulo"], p.get("item_id")):
+            print(f"  Pula: {p['titulo'][:50]}")
             continue
         if postar(p):
-            registrar_postado(estado, p["id"], p["titulo"], agora)
+            registrar_postado(estado, p["id"], p["titulo"], agora, p.get("item_id"))
             enviados += 1
             salvar_estado(estado)
     salvar_estado(estado)
     print("Postagens enviadas:", enviados)
+    print(f"Estado: {len(estado.get('ids', {}))} ids bloqueados")
 
 
 if __name__ == "__main__":
