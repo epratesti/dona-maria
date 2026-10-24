@@ -1,6 +1,16 @@
 {
-  "atualizado": "2026-10-24T04:57:22.749436-03:00",
+  "atualizado": "2026-10-24T07:13:16.082469-03:00",
   "itens": [
+    {
+      "id": "MLB44923446",
+      "titulo": "Chinelo Top Havaianas Liso Branco",
+      "preco": 33.5,
+      "preco_original": 44.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Moda Feminina",
+      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
+    },
     {
       "id": "MLB45474714",
       "titulo": "Chinelo Feminino Slim Havaianas",
@@ -12,14 +22,34 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7736304418?matt_tool=71970283"
     },
     {
-      "id": "MLB44923446",
-      "titulo": "Chinelo Top Havaianas Liso Branco",
-      "preco": 33.5,
-      "preco_original": 44.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
+      "id": "MLB78872569",
+      "titulo": "Maquina Maquininha Dragao Acabamento Cortar Cabelo Aparador Barba Pelos Elétrica Sem Fio Recarregavel - Crowley",
+      "preco": 22.9,
+      "preco_original": 34.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_952927-MLA115681613734_092026-F.jpg",
       "frete_gratis": false,
-      "categoria": "Moda Feminina",
-      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7582052312?matt_tool=71970283"
+    },
+    {
+      "id": "MLB19755099",
+      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
+      "preco": 83.56,
+      "preco_original": 120.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
+    },
+    {
+      "id": "MLB52363091",
+      "titulo": "Escova Progressiva 150g - Fashion Gold",
+      "preco": 99.9,
+      "preco_original": 116.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_861957-MLA108178234350_032026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-4239462089?matt_tool=71970283"
     },
     {
       "id": "MLB26080271",
@@ -32,44 +62,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-5095122289?matt_tool=71970283"
     },
     {
-      "id": "MLB21361292",
-      "titulo": "Loção Hidratante Corporal 3 Ceramidas Hidratação 120h CeraVe 473ml",
-      "preco": 100.16,
-      "preco_original": 143.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_930930-MLA118355221530_102026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3269837602?matt_tool=71970283"
-    },
-    {
-      "id": "MLB60416809",
-      "titulo": "Hidrabene Protetor facial Solar FPS 70 Toque Seco Antissinais Clareia a pele 50g",
-      "preco": 49.99,
-      "preco_original": 54.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_655805-MLA116956226142_092026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-7717419048?matt_tool=71970283"
-    },
-    {
-      "id": "MLB22871761",
-      "titulo": "Escova Rotativa Mondial Ceramica Tourmaline Ion 3x1 Erb-01 Rosa 127/220v",
-      "preco": 133.41,
-      "preco_original": 299.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_842831-MLA99963285219_112025-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5210029249?matt_tool=71970283"
-    },
-    {
-      "id": "MLB28894895",
-      "titulo": "Relógio Digital Despertador Mesa Cabeceira Quarto Idoso Cor Preto Micgeek",
-      "preco": 24.94,
-      "preco_original": 40.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_767519-MLA108974232726_032026-F.jpg",
+      "id": "MLB70378764",
+      "titulo": "Relogio De Parede Analogico 30cm Preto Branco Redondo Quartz Preto Branco",
+      "preco": 31.17,
+      "preco_original": 34.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_876061-MLA119342447875_102026-F.jpg",
       "frete_gratis": false,
       "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-6738365586?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4717286085?matt_tool=71970283"
     },
     {
       "id": "MLB42520227",
@@ -82,14 +82,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
     },
     {
-      "id": "MLB70378764",
-      "titulo": "Relogio De Parede Analogico 30cm Preto Branco Redondo Quartz Preto Branco",
-      "preco": 31.17,
-      "preco_original": 34.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_876061-MLA119342447875_102026-F.jpg",
-      "frete_gratis": false,
+      "id": "MLB19721946",
+      "titulo": "Relógio Casio Unissex Vintage Prata Aq-230a-1dmq",
+      "preco": 134.95,
+      "preco_original": 299.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_633473-MLA115741902361_082026-F.jpg",
+      "frete_gratis": true,
       "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-4717286085?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-5332948385?matt_tool=71970283"
     },
     {
       "id": "MLB70228023",
