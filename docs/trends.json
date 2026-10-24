@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-10-23T23:53:23.611682-03:00",
+  "atualizado": "2026-10-24T03:01:33.273181-03:00",
   "itens": [
     {
       "id": "MLB45474714",
@@ -22,16 +22,6 @@
       "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
     },
     {
-      "id": "MLB19767143",
-      "titulo": "Protetor Solar Facial Alta Cobertura Anthelios La Roche-Posay Cor 3.0 30g",
-      "preco": 77.17,
-      "preco_original": 109.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_728452-MLA103883256579_012026-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3340533709?matt_tool=71970283"
-    },
-    {
       "id": "MLB78872569",
       "titulo": "Maquina Maquininha Dragao Acabamento Cortar Cabelo Aparador Barba Pelos Elétrica Sem Fio Recarregavel - Crowley",
       "preco": 22.9,
@@ -42,34 +32,34 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7582052312?matt_tool=71970283"
     },
     {
-      "id": "MLB19150371",
-      "titulo": "NIVEA Hidratante Desodorante Beleza Radiante Cuidado Intenso 400ml, Hidratação Profunda 48h, Brilho Natural, Corporal, Pele Seca e Extrasseca",
-      "preco": 24.9,
-      "preco_original": 27.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_959443-MLA93494140268_102025-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-7875278108?matt_tool=71970283"
-    },
-    {
-      "id": "MLB18717798",
-      "titulo": "Fralda Bigfral Derma Plus M 8 Unidades Tamanho Médio",
-      "preco": 27.99,
-      "preco_original": 37.21,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_952728-MLA99929505489_112025-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3338989740?matt_tool=71970283"
-    },
-    {
-      "id": "MLB42520227",
-      "titulo": "Smartwatch Xiaomi Redmi Watch 5 Lite 1.96 Preto",
-      "preco": 338.53,
-      "preco_original": 349.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_779006-MLA119924571115_102026-F.jpg",
+      "id": "MLB52363091",
+      "titulo": "Escova Progressiva 150g - Fashion Gold",
+      "preco": 99.9,
+      "preco_original": 116.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_861957-MLA108178234350_032026-F.jpg",
       "frete_gratis": true,
-      "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-4239462089?matt_tool=71970283"
+    },
+    {
+      "id": "MLB18964467",
+      "titulo": "Principia Sérum Vitamina C-10",
+      "preco": 86.89,
+      "preco_original": 96.55,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_614742-MLA98385730409_112025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-5408255905?matt_tool=71970283"
+    },
+    {
+      "id": "MLB19694427",
+      "titulo": "Escova Secadora Britânia Bivolt 1300w Soft Bec07r Original",
+      "preco": 94.63,
+      "preco_original": 150.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_734805-MLA114128393951_072026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7551985662?matt_tool=71970283"
     },
     {
       "id": "MLB70228023",
@@ -82,6 +72,16 @@
       "link": "https://produto.mercadolivre.com.br/MLB-4707470817?matt_tool=71970283"
     },
     {
+      "id": "MLB65974554",
+      "titulo": "Porta Joias 3 Camadas Couro Caixa De Jóias Feminina Cor Verde",
+      "preco": 74.0,
+      "preco_original": 149.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_923511-MLA106965860438_022026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-4486407159?matt_tool=71970283"
+    },
+    {
       "id": "MLB19721946",
       "titulo": "Relógio Casio Unissex Vintage Prata Aq-230a-1dmq",
       "preco": 134.95,
@@ -92,14 +92,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-5332948385?matt_tool=71970283"
     },
     {
-      "id": "MLB27398239",
-      "titulo": "Jogo Chave de Fenda e Philips Profissional Imantado 12 Peças",
-      "preco": 62.9,
-      "preco_original": 99.4,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_625409-MLA112629191862_062026-F.jpg",
+      "id": "MLB70378764",
+      "titulo": "Relogio De Parede Analogico 30cm Preto Branco Redondo Quartz Preto Branco",
+      "preco": 31.17,
+      "preco_original": 34.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_876061-MLA119342447875_102026-F.jpg",
       "frete_gratis": false,
       "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-6764389912?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4717286085?matt_tool=71970283"
     }
   ]
 }
