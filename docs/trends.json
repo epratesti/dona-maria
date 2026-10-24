@@ -1,16 +1,6 @@
 {
-  "atualizado": "2026-10-24T08:18:08.377330-03:00",
+  "atualizado": "2026-10-24T10:02:45.832136-03:00",
   "itens": [
-    {
-      "id": "MLB44923446",
-      "titulo": "Chinelo Top Havaianas Liso Branco",
-      "preco": 33.5,
-      "preco_original": 44.99,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
-      "frete_gratis": false,
-      "categoria": "Moda Feminina",
-      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
-    },
     {
       "id": "MLB45474714",
       "titulo": "Chinelo Feminino Slim Havaianas",
@@ -22,24 +12,34 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7736304418?matt_tool=71970283"
     },
     {
-      "id": "MLB21361292",
-      "titulo": "Loção Hidratante Corporal 3 Ceramidas Hidratação 120h CeraVe 473ml",
-      "preco": 100.16,
-      "preco_original": 143.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_930930-MLA118355221530_102026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-3269837602?matt_tool=71970283"
+      "id": "MLB44923446",
+      "titulo": "Chinelo Top Havaianas Liso Branco",
+      "preco": 33.5,
+      "preco_original": 44.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Moda Feminina",
+      "link": "https://produto.mercadolivre.com.br/MLB-4645447057?matt_tool=71970283"
     },
     {
-      "id": "MLB22871761",
-      "titulo": "Escova Rotativa Mondial Ceramica Tourmaline Ion 3x1 Erb-01 Rosa 127/220v",
-      "preco": 133.41,
-      "preco_original": 299.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_842831-MLA99963285219_112025-F.jpg",
+      "id": "MLB19755099",
+      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
+      "preco": 83.57,
+      "preco_original": 120.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5210029249?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
+    },
+    {
+      "id": "MLB52363091",
+      "titulo": "Escova Progressiva 150g - Fashion Gold",
+      "preco": 99.9,
+      "preco_original": 116.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_861957-MLA108178234350_032026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-4239462089?matt_tool=71970283"
     },
     {
       "id": "MLB78872569",
@@ -52,14 +52,14 @@
       "link": "https://produto.mercadolivre.com.br/MLB-7582052312?matt_tool=71970283"
     },
     {
-      "id": "MLB19755099",
-      "titulo": "Protetor Solar Facial Antioleosidade FPS 80 Anthelios La Roche-Posay 40g",
-      "preco": 83.56,
-      "preco_original": 120.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_752201-MLA113617929791_062026-F.jpg",
+      "id": "MLB60416809",
+      "titulo": "Hidrabene Protetor facial Solar FPS 70 Toque Seco Antissinais Clareia a pele 50g",
+      "preco": 49.99,
+      "preco_original": 54.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_655805-MLA116956226142_092026-F.jpg",
       "frete_gratis": true,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-4195198970?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-7717419048?matt_tool=71970283"
     },
     {
       "id": "MLB65974554",
@@ -82,6 +82,16 @@
       "link": "https://produto.mercadolivre.com.br/MLB-6764389912?matt_tool=71970283"
     },
     {
+      "id": "MLB70228023",
+      "titulo": "Kit Relógio Feminino Colar Brinco Pulseira Folheado Presente Prateado",
+      "preco": 37.42,
+      "preco_original": 49.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_907811-MLA112159861189_052026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-4707470817?matt_tool=71970283"
+    },
+    {
       "id": "MLB28894895",
       "titulo": "Relógio Digital Despertador Mesa Cabeceira Quarto Idoso Cor Preto Micgeek",
       "preco": 24.94,
@@ -90,16 +100,6 @@
       "frete_gratis": false,
       "categoria": "Acessórios Femininos",
       "link": "https://produto.mercadolivre.com.br/MLB-6738365586?matt_tool=71970283"
-    },
-    {
-      "id": "MLB42520227",
-      "titulo": "Smartwatch Xiaomi Redmi Watch 5 Lite 1.96 Preto",
-      "preco": 338.53,
-      "preco_original": 349.0,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_779006-MLA119924571115_102026-F.jpg",
-      "frete_gratis": true,
-      "categoria": "Acessórios Femininos",
-      "link": "https://produto.mercadolivre.com.br/MLB-7549335872?matt_tool=71970283"
     }
   ]
 }
