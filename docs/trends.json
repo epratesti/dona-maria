@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-10-25T11:20:18.777134-03:00",
-  "itens": []
+  "atualizado": "2026-10-25T13:19:49.229557-03:00",
+  "itens": [
+    {
+      "id": "MLB63615370",
+      "titulo": "Creme Hidratante Facial Principia Ch-01 Karité Glicerina 50g Todo Tipo De Pele Dia/noite",
+      "preco": 62.99,
+      "preco_original": 69.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_918525-MLA102373426972_122025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7263906314?matt_tool=71970283"
+    }
+  ]
 }
