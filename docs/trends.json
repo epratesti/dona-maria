@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-10-27T11:26:26.435280-03:00",
-  "itens": []
+  "atualizado": "2026-10-27T13:22:34.622973-03:00",
+  "itens": [
+    {
+      "id": "MLB42456000",
+      "titulo": "Máscara Acidificante Amend Equilíbrio do pH 250g",
+      "preco": 29.38,
+      "preco_original": 30.29,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_997869-MLA119798411771_102026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-7549782504?matt_tool=71970283"
+    }
+  ]
 }
