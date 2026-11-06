@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-11-06T10:27:55.150907-03:00",
-  "itens": []
+  "atualizado": "2026-11-06T12:21:14.415973-03:00",
+  "itens": [
+    {
+      "id": "MLB39016247",
+      "titulo": "O Boticário Quasar Blue Desodorante Colônia 100ml",
+      "preco": 75.95,
+      "preco_original": 189.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_645686-MLA82876911341_032025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-3995123939?matt_tool=71970283"
+    }
+  ]
 }
