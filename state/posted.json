@@ -1,11 +1,5 @@
 {
   "ids": {
-    "MLB19694427": "2026-10-24T13:18:14.225191-03:00",
-    "MLB4311848782": "2026-10-24T13:18:14.225191-03:00",
-    "MLB-4311848782": "2026-10-24T13:18:14.225191-03:00",
-    "MLB70378764": "2026-10-24T13:18:14.225191-03:00",
-    "MLB4717286085": "2026-10-24T13:18:14.225191-03:00",
-    "MLB-4717286085": "2026-10-24T13:18:14.225191-03:00",
     "MLB18964467": "2026-10-24T13:50:46.814482-03:00",
     "MLB5408255905": "2026-10-24T13:50:46.814482-03:00",
     "MLB-5408255905": "2026-10-24T13:50:46.814482-03:00",
@@ -75,13 +69,15 @@
     "MLB-7764754562": "2026-11-07T11:32:50.355568-03:00",
     "MLB28894895": "2026-11-07T11:32:50.355568-03:00",
     "MLB6738365586": "2026-11-07T11:32:50.355568-03:00",
-    "MLB-6738365586": "2026-11-07T11:32:50.355568-03:00"
+    "MLB-6738365586": "2026-11-07T11:32:50.355568-03:00",
+    "MLB42520227": "2026-11-07T13:20:31.963609-03:00",
+    "MLB7585997916": "2026-11-07T13:20:31.963609-03:00",
+    "MLB-7585997916": "2026-11-07T13:20:31.963609-03:00",
+    "MLB19694427": "2026-11-07T13:20:31.963609-03:00",
+    "MLB4311848782": "2026-11-07T13:20:31.963609-03:00",
+    "MLB-4311848782": "2026-11-07T13:20:31.963609-03:00"
   },
   "titulos": {
-    "escova secadora britânia bivolt 1300w soft bec07r original": "2026-10-24T13:18:14.225191-03:00",
-    "1300w bec07r bivolt britânia escova secadora soft": "2026-10-24T13:18:14.225191-03:00",
-    "relogio de parede analogico 30cm preto branco redondo quartz preto branco": "2026-10-24T13:18:14.225191-03:00",
-    "30cm analogico parede quartz redondo relogio": "2026-10-24T13:18:14.225191-03:00",
     "principia sérum vitamina c 10": "2026-10-24T13:50:46.814482-03:00",
     "principia sérum vitamina": "2026-10-24T13:50:46.814482-03:00",
     "relógio casio unissex vintage prata aq 230a 1dmq": "2026-10-24T13:50:46.814482-03:00",
@@ -129,6 +125,10 @@
     "chinelo top havaianas liso branco": "2026-11-07T11:32:50.355568-03:00",
     "chinelo havaianas liso top": "2026-11-07T11:32:50.355568-03:00",
     "relógio digital despertador mesa cabeceira quarto idoso cor preto micgeek": "2026-11-07T11:32:50.355568-03:00",
-    "cabeceira despertador digital idoso mesa micgeek quarto relógio": "2026-11-07T11:32:50.355568-03:00"
+    "cabeceira despertador digital idoso mesa micgeek quarto relógio": "2026-11-07T11:32:50.355568-03:00",
+    "smartwatch xiaomi redmi watch 5 lite 1 96 preto": "2026-11-07T13:20:31.963609-03:00",
+    "lite redmi smartwatch watch xiaomi": "2026-11-07T13:20:31.963609-03:00",
+    "escova secadora britânia bivolt 1300w soft bec07r original": "2026-11-07T13:20:31.963609-03:00",
+    "1300w bec07r bivolt britânia escova secadora soft": "2026-11-07T13:20:31.963609-03:00"
   }
 }
