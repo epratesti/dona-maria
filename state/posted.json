@@ -1,8 +1,5 @@
 {
   "ids": {
-    "MLB44866959": "2026-10-25T07:13:06.626479-03:00",
-    "MLB5183217375": "2026-10-25T07:13:06.626479-03:00",
-    "MLB-5183217375": "2026-10-25T07:13:06.626479-03:00",
     "MLB63615370": "2026-10-25T13:19:49.229557-03:00",
     "MLB7263906314": "2026-10-25T13:19:49.229557-03:00",
     "MLB-7263906314": "2026-10-25T13:19:49.229557-03:00",
@@ -66,11 +63,13 @@
     "MLB-3338989740": "2026-11-07T21:22:10.179762-03:00",
     "MLB22871761": "2026-11-07T21:51:41.443159-03:00",
     "MLB5210029249": "2026-11-07T21:51:41.443159-03:00",
-    "MLB-5210029249": "2026-11-07T21:51:41.443159-03:00"
+    "MLB-5210029249": "2026-11-07T21:51:41.443159-03:00",
+    "MLB24326256": "2026-11-08T04:48:24.405480-03:00",
+    "MLB16138960": "2026-11-08T07:16:34.897801-03:00",
+    "MLB3939720011": "2026-11-08T07:16:34.897801-03:00",
+    "MLB-3939720011": "2026-11-08T07:16:34.897801-03:00"
   },
   "titulos": {
-    "protetor solar antimanchas com cor 2 em bastão 90fps sallve": "2026-10-25T07:13:06.626479-03:00",
-    "90fps antimanchas bastão protetor sallve solar": "2026-10-25T07:13:06.626479-03:00",
     "creme hidratante facial principia ch 01 karité glicerina 50g todo tipo de pele dia noite": "2026-10-25T13:19:49.229557-03:00",
     "50g creme facial glicerina hidratante karité principia todo": "2026-10-25T13:19:49.229557-03:00",
     "manta líquida emborrachada impermeabilizante 3 6kg": "2026-10-26T18:15:52.834051-03:00",
@@ -114,6 +113,10 @@
     "fralda bigfral derma plus m 8 unidades tamanho médio": "2026-11-07T21:22:10.179762-03:00",
     "bigfral derma fralda médio plus": "2026-11-07T21:22:10.179762-03:00",
     "escova rotativa mondial ceramica tourmaline ion 3x1 erb 01 rosa 127 220v": "2026-11-07T21:51:41.443159-03:00",
-    "3x1 ceramica erb escova ion mondial rotativa tourmaline": "2026-11-07T21:51:41.443159-03:00"
+    "3x1 ceramica erb escova ion mondial rotativa tourmaline": "2026-11-07T21:51:41.443159-03:00",
+    "creme multirreparador pele sensível cicaplast baume b5 la roche posay 40ml": "2026-11-08T04:48:24.405480-03:00",
+    "baume cicaplast creme multirreparador pele posay roche sensível": "2026-11-08T04:48:24.405480-03:00",
+    "protetor solar neostrata minesol oil control 70fps en gel creme 70ml": "2026-11-08T07:16:34.897801-03:00",
+    "70fps control gel minesol neostrata oil protetor solar": "2026-11-08T07:16:34.897801-03:00"
   }
 }
