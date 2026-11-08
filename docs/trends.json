@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-11-07T19:17:26.502388-03:00",
-  "itens": []
+  "atualizado": "2026-11-07T21:22:10.179762-03:00",
+  "itens": [
+    {
+      "id": "MLB18717798",
+      "titulo": "Fralda Bigfral Derma Plus M 8 Unidades Tamanho Médio",
+      "preco": 27.9,
+      "preco_original": 38.88,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_952728-MLA99929505489_112025-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-3338989740?matt_tool=71970283"
+    }
+  ]
 }

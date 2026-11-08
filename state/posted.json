@@ -1,11 +1,5 @@
 {
   "ids": {
-    "MLB22871761": "2026-10-24T19:40:29.388777-03:00",
-    "MLB5210029249": "2026-10-24T19:40:29.388777-03:00",
-    "MLB-5210029249": "2026-10-24T19:40:29.388777-03:00",
-    "MLB18717798": "2026-10-24T21:19:39.957072-03:00",
-    "MLB3338989740": "2026-10-24T21:19:39.957072-03:00",
-    "MLB-3338989740": "2026-10-24T21:19:39.957072-03:00",
     "MLB25904875": "2026-10-24T22:27:40.274751-03:00",
     "MLB3954266250": "2026-10-24T22:27:40.274751-03:00",
     "MLB-3954266250": "2026-10-24T22:27:40.274751-03:00",
@@ -69,13 +63,12 @@
     "MLB-4717286085": "2026-11-07T15:15:25.227104-03:00",
     "MLB70228023": "2026-11-07T17:16:25.947165-03:00",
     "MLB4707470817": "2026-11-07T17:16:25.947165-03:00",
-    "MLB-4707470817": "2026-11-07T17:16:25.947165-03:00"
+    "MLB-4707470817": "2026-11-07T17:16:25.947165-03:00",
+    "MLB18717798": "2026-11-07T21:22:10.179762-03:00",
+    "MLB3338989740": "2026-11-07T21:22:10.179762-03:00",
+    "MLB-3338989740": "2026-11-07T21:22:10.179762-03:00"
   },
   "titulos": {
-    "escova rotativa mondial ceramica tourmaline ion 3x1 erb 01 rosa 127 220v": "2026-10-24T19:40:29.388777-03:00",
-    "3x1 ceramica erb escova ion mondial rotativa tourmaline": "2026-10-24T19:40:29.388777-03:00",
-    "fralda bigfral derma plus m 8 unidades tamanho médio": "2026-10-24T21:19:39.957072-03:00",
-    "bigfral derma fralda médio plus": "2026-10-24T21:19:39.957072-03:00",
     "creme multirreparador pele sensível cicaplast baume b5 la roche posay 20ml": "2026-10-24T22:27:40.274751-03:00",
     "baume cicaplast creme multirreparador pele posay roche sensível": "2026-10-24T22:27:40.274751-03:00",
     "protetor solar antimanchas com cor 2 em bastão 90fps sallve": "2026-10-25T07:13:06.626479-03:00",
@@ -119,6 +112,8 @@
     "relógio de parede quartz kasa redondo com 30 cm para cozinha": "2026-11-07T15:15:25.227104-03:00",
     "cozinha kasa parede quartz redondo relógio": "2026-11-07T15:15:25.227104-03:00",
     "kit relógio feminino colar brinco pulseira folheado presente prateado": "2026-11-07T17:16:25.947165-03:00",
-    "brinco colar folheado prateado presente pulseira relógio": "2026-11-07T17:16:25.947165-03:00"
+    "brinco colar folheado prateado presente pulseira relógio": "2026-11-07T17:16:25.947165-03:00",
+    "fralda bigfral derma plus m 8 unidades tamanho médio": "2026-11-07T21:22:10.179762-03:00",
+    "bigfral derma fralda médio plus": "2026-11-07T21:22:10.179762-03:00"
   }
 }
