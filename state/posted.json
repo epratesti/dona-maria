@@ -1,8 +1,5 @@
 {
   "ids": {
-    "MLB42456000": "2026-10-27T13:22:34.622973-03:00",
-    "MLB7549782504": "2026-10-27T13:22:34.622973-03:00",
-    "MLB-7549782504": "2026-10-27T13:22:34.622973-03:00",
     "MLB62511822": "2026-10-29T07:17:35.356462-03:00",
     "MLB6254580488": "2026-10-29T07:17:35.356462-03:00",
     "MLB-6254580488": "2026-10-29T07:17:35.356462-03:00",
@@ -61,11 +58,15 @@
     "MLB24326256": "2026-11-08T04:48:24.405480-03:00",
     "MLB16138960": "2026-11-08T07:16:34.897801-03:00",
     "MLB3939720011": "2026-11-08T07:16:34.897801-03:00",
-    "MLB-3939720011": "2026-11-08T07:16:34.897801-03:00"
+    "MLB-3939720011": "2026-11-08T07:16:34.897801-03:00",
+    "MLB17425497": "2026-11-10T15:06:43.152553-03:00",
+    "MLB7778872184": "2026-11-10T15:06:43.152553-03:00",
+    "MLB-7778872184": "2026-11-10T15:06:43.152553-03:00",
+    "MLB62797467": "2026-11-10T15:06:43.152553-03:00",
+    "MLB5101650537": "2026-11-10T15:06:43.152553-03:00",
+    "MLB-5101650537": "2026-11-10T15:06:43.152553-03:00"
   },
   "titulos": {
-    "máscara acidificante amend equilíbrio do ph 250g": "2026-10-27T13:22:34.622973-03:00",
-    "250g acidificante amend equilíbrio máscara": "2026-10-27T13:22:34.622973-03:00",
     "tênis carina street bdp puma": "2026-10-29T07:17:35.356462-03:00",
     "bdp carina puma street tênis": "2026-10-29T07:17:35.356462-03:00",
     "guarda chuva grande automatico reforçado contra vento origi cor verde musgo desenho do tecido liso": "2026-10-31T12:28:04.516412-03:00",
@@ -107,6 +108,10 @@
     "creme multirreparador pele sensível cicaplast baume b5 la roche posay 40ml": "2026-11-08T04:48:24.405480-03:00",
     "baume cicaplast creme multirreparador pele posay roche sensível": "2026-11-08T04:48:24.405480-03:00",
     "protetor solar neostrata minesol oil control 70fps en gel creme 70ml": "2026-11-08T07:16:34.897801-03:00",
-    "70fps control gel minesol neostrata oil protetor solar": "2026-11-08T07:16:34.897801-03:00"
+    "70fps control gel minesol neostrata oil protetor solar": "2026-11-08T07:16:34.897801-03:00",
+    "relógio vintage preto com pulseira de borracha f91w 1 clássico e elegante casio": "2026-11-10T15:06:43.152553-03:00",
+    "borracha casio clássico elegante f91w pulseira relógio vintage": "2026-11-10T15:06:43.152553-03:00",
+    "floratta flores secretas 75ml o boticário feminino": "2026-11-10T15:06:43.152553-03:00",
+    "75ml boticário floratta flores secretas": "2026-11-10T15:06:43.152553-03:00"
   }
 }

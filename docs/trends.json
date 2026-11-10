@@ -1,4 +1,25 @@
 {
-  "atualizado": "2026-11-10T09:23:44.432192-03:00",
-  "itens": []
+  "atualizado": "2026-11-10T15:06:43.152553-03:00",
+  "itens": [
+    {
+      "id": "MLB17425497",
+      "titulo": "Relógio Vintage Preto com Pulseira de Borracha F91W-1 Clássico e Elegante Casio",
+      "preco": 74.06,
+      "preco_original": 189.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_999657-MLA118986253288_112026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-7778872184?matt_tool=71970283"
+    },
+    {
+      "id": "MLB62797467",
+      "titulo": "Floratta Flores Secretas 75ml O Boticário Feminino",
+      "preco": 84.89,
+      "preco_original": 174.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_889465-MLA99767551238_122025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-5101650537?matt_tool=71970283"
+    }
+  ]
 }
