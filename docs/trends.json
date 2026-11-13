@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-11-13T10:29:25.116746-03:00",
-  "itens": []
+  "atualizado": "2026-11-13T12:24:07.228913-03:00",
+  "itens": [
+    {
+      "id": "MLB19620491",
+      "titulo": "Gel De Limpeza Facial Effaclar Concentrado 300g La Roche Posay",
+      "preco": 76.79,
+      "preco_original": 133.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_976360-MLA115029876009_072026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-2819502650?matt_tool=71970283"
+    }
+  ]
 }
