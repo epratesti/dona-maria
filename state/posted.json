@@ -1,8 +1,5 @@
 {
   "ids": {
-    "MLB18392841": "2026-11-03T12:20:20.556301-03:00",
-    "MLB7659250780": "2026-11-03T12:20:20.556301-03:00",
-    "MLB-7659250780": "2026-11-03T12:20:20.556301-03:00",
     "MLB17775080": "2026-11-04T12:19:51.678097-03:00",
     "MLB5426903089": "2026-11-04T12:19:51.678097-03:00",
     "MLB-5426903089": "2026-11-04T12:19:51.678097-03:00",
@@ -73,11 +70,12 @@
     "MLB-2819502650": "2026-11-13T12:24:07.228913-03:00",
     "MLB17822924": "2026-11-14T13:22:55.668497-03:00",
     "MLB4431320428": "2026-11-14T13:22:55.668497-03:00",
-    "MLB-4431320428": "2026-11-14T13:22:55.668497-03:00"
+    "MLB-4431320428": "2026-11-14T13:22:55.668497-03:00",
+    "MLB53618239": "2026-11-17T12:55:40.928511-03:00",
+    "MLB5554213538": "2026-11-17T12:55:40.928511-03:00",
+    "MLB-5554213538": "2026-11-17T12:55:40.928511-03:00"
   },
   "titulos": {
-    "lenços umedecidos huggies rosto e corpo 4 pcts 192 un": "2026-11-03T12:20:20.556301-03:00",
-    "corpo huggies lenços pcts rosto umedecidos": "2026-11-03T12:20:20.556301-03:00",
     "huggies lenços umedecidos higiene superior limpam 2x mais 48 un": "2026-11-04T12:19:51.678097-03:00",
     "higiene huggies lenços limpam mais superior umedecidos": "2026-11-04T12:19:51.678097-03:00",
     "máscara de reconstrução profunda para cabelos danificados força e elasticidade résistance thérapiste": "2026-11-05T12:42:07.693590-03:00",
@@ -127,6 +125,8 @@
     "gel de limpeza facial effaclar concentrado 300g la roche posay": "2026-11-13T12:24:07.228913-03:00",
     "300g concentrado effaclar facial gel limpeza posay roche": "2026-11-13T12:24:07.228913-03:00",
     "relógio de pulso casio ga 2100 com corria de resina cor vermelho fondo bordô": "2026-11-14T13:22:55.668497-03:00",
-    "bordô casio corria fondo pulso relógio resina": "2026-11-14T13:22:55.668497-03:00"
+    "bordô casio corria fondo pulso relógio resina": "2026-11-14T13:22:55.668497-03:00",
+    "kit principia para rotina de skincare pele sensível com protetor solar fps 60": "2026-11-17T12:55:40.928511-03:00",
+    "fps pele principia protetor rotina sensível skincare solar": "2026-11-17T12:55:40.928511-03:00"
   }
 }
