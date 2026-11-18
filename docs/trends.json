@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-11-18T12:00:58.041914-03:00",
-  "itens": []
+  "atualizado": "2026-11-18T13:35:48.318712-03:00",
+  "itens": [
+    {
+      "id": "MLB17775080",
+      "titulo": "Huggies Lenços Umedecidos Higiene Superior Limpam 2x Mais 48 Un",
+      "preco": 11.8,
+      "preco_original": 18.39,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_969938-MLA110462868389_042026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-1918231225?matt_tool=71970283"
+    }
+  ]
 }
