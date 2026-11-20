@@ -1,4 +1,15 @@
 {
-  "atualizado": "2026-11-20T09:24:25.834485-03:00",
-  "itens": []
+  "atualizado": "2026-11-20T13:02:45.953723-03:00",
+  "itens": [
+    {
+      "id": "MLB36136752",
+      "titulo": "O Boticário Liz Flora Desodorante Colônia 100ml",
+      "preco": 99.9,
+      "preco_original": 189.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_837324-MLU75963465495_042024-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-5535526813?matt_tool=71970283"
+    }
+  ]
 }
