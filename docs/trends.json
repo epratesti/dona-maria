@@ -1,15 +1,15 @@
 {
-  "atualizado": "2026-11-20T13:02:45.953723-03:00",
+  "atualizado": "2026-11-20T14:26:10.946739-03:00",
   "itens": [
     {
-      "id": "MLB36136752",
-      "titulo": "O Boticário Liz Flora Desodorante Colônia 100ml",
-      "preco": 99.9,
-      "preco_original": 189.9,
-      "imagem": "https://http2.mlstatic.com/D_NQ_NP_837324-MLU75963465495_042024-F.jpg",
-      "frete_gratis": true,
+      "id": "MLB17823763",
+      "titulo": "Creme Dental Colgate Total Anti Tártaro 180g",
+      "preco": 17.44,
+      "preco_original": 20.13,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_934788-MLA115583677394_092026-F.jpg",
+      "frete_gratis": false,
       "categoria": "Beleza & Cuidados",
-      "link": "https://produto.mercadolivre.com.br/MLB-5535526813?matt_tool=71970283"
+      "link": "https://produto.mercadolivre.com.br/MLB-3504824952?matt_tool=71970283"
     }
   ]
 }
