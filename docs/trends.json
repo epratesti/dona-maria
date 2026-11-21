@@ -1,4 +1,35 @@
 {
-  "atualizado": "2026-11-21T10:29:02.452854-03:00",
-  "itens": []
+  "atualizado": "2026-11-21T13:21:53.167240-03:00",
+  "itens": [
+    {
+      "id": "MLB28894895",
+      "titulo": "Relógio Digital Despertador Mesa Cabeceira Quarto Idoso Cor Preto Micgeek",
+      "preco": 24.94,
+      "preco_original": 40.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_767519-MLA108974232726_032026-F.jpg",
+      "frete_gratis": false,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-6738365586?matt_tool=71970283"
+    },
+    {
+      "id": "MLB44923446",
+      "titulo": "Chinelo Unissex Top Havaianas Liso",
+      "preco": 80.91,
+      "preco_original": 89.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_740930-MLA100107121067_122025-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Íntimos & Lingerie",
+      "link": "https://produto.mercadolivre.com.br/MLB-7764754562?matt_tool=71970283"
+    },
+    {
+      "id": "MLB26080271",
+      "titulo": "L'Oréal Paris Elseve Óleo Extraordinário 100ml - Leave In Anti Frizz Protetor Térmico Tratamento Reconstrutor Para Todos Os Tipos De Cabelo",
+      "preco": 50.91,
+      "preco_original": 59.9,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_775128-MLA120018457362_112026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-5546268845?matt_tool=71970283"
+    }
+  ]
 }
