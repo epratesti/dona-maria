@@ -1,4 +1,25 @@
 {
-  "atualizado": "2026-11-22T11:31:37.721468-03:00",
-  "itens": []
+  "atualizado": "2026-11-22T13:23:33.109513-03:00",
+  "itens": [
+    {
+      "id": "MLB67714382",
+      "titulo": "Smartwatch HUAWEI WATCH FIT 5 AMOLED de 182\" Design Leve Mini Treino Bateria com Até 10 Dias 64 GB Gerenciamento Avançado da Saúde Monitor do Sono SpO2 GPS Compatível com iOS e Android Branco",
+      "preco": 851.66,
+      "preco_original": 1499.0,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_888241-MLA110593054037_042026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Acessórios Femininos",
+      "link": "https://produto.mercadolivre.com.br/MLB-6935495886?matt_tool=71970283"
+    },
+    {
+      "id": "MLB18391232",
+      "titulo": "NIVEA Loção Deo-Hidratante Corporal Milk 400ml, 72h de hidratação, Cuidado Intensivo",
+      "preco": 18.32,
+      "preco_original": 26.99,
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_974841-MLA121137466497_112026-F.jpg",
+      "frete_gratis": true,
+      "categoria": "Beleza & Cuidados",
+      "link": "https://produto.mercadolivre.com.br/MLB-3339445269?matt_tool=71970283"
+    }
+  ]
 }
